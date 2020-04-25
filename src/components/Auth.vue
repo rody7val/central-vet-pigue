@@ -11,7 +11,7 @@
     </b-nav-item-dropdown>
 
     <b-button variant='outline-primary' v-if='!$user' @click='signIn'>
-      <b-icon-people-circle></b-icon-people-circle> ACCEDER
+      <b-icon-people-circle></b-icon-people-circle> <small>ACCEDER</small>
     </b-button>
   </div>
 </template>
