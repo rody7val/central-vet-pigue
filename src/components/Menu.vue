@@ -1,7 +1,9 @@
 <template>
-  <b-navbar toggleable="sm" type="dark" id="menu">
+  <b-navbar toggleable="sm" type="dark" id="menu" class="shadow">
     <b-container fluid="sm">
-      <b-navbar-brand to="/">Inicio</b-navbar-brand>
+      <b-navbar-brand to="/">
+        <img src="@/assets/logo-central-vet.jpg" id="logo">
+      </b-navbar-brand>
 
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
@@ -36,11 +38,11 @@ export default {
   data () {
     return {
       navAdmin: [
-        { to: '/list', name: 'Personas' },
+        { to: '/items', name: 'Productos' },
         { to: '/users', name: 'Usuarios' }
       ],
       nav: [
-        { to: '/about', name: 'Info' }
+        { to: '/about', name: 'Información' }
       ]
     }
   }
@@ -48,8 +50,14 @@ export default {
 </script>
 
 <style scoped>
-#menu{
+#logo{
+  width: 3rem;
+  border-radius: 50%
+}
+.shadow{
   box-shadow: 0 0.25rem 0.25rem rgba(0,0,0,.25), inset 0 -1px 5px rgba(0,0,0,.25);
+}
+#menu{
   background-color: rgb(52, 73, 94);
   background-color: #563d7c;
 }

@@ -1,14 +1,17 @@
 <template>
   <b-jumbotron style="background-color: #fff">
-    <template v-slot:header>Inicio</template>
+    <template v-slot:header>Veterinaria Central Vet</template>
 
     <template v-slot:lead>
-      Aplicación de ejemplo creada con <a target="_blank" rel="noreferrer noopener" href="https://cli.vuejs.org/">vue-cli</a>.
+      <b>Bienvenidos!</b>
+      <p>Encontrá los mejores productos en nuestra central veterinaria de Pigüé</p>
+      <b-button>Ver productos</b-button>
+      <b-button variant="dark">Ver servicios</b-button>
     </template>
 
     <hr class="my-4">
 
-    <p>By rod7val@gmail.com</p>
+    <p>Servicios veterinarios - Guillermina Puente</p>
   </b-jumbotron>
 </template>
 
@@ -19,7 +22,4 @@ export default {
 </script>
 
 <style scoped>
-svg{
-  color: red
-}
 </style>

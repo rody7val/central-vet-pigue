@@ -4,9 +4,9 @@ import firebase from 'firebase'
 
 import About from '@/components/About'
 import Home from '@/components/Home'
-import List from '@/components/List'
+import Items from '@/components/Items'
+import Item from '@/components/Item'
 import Users from '@/components/Users'
-import Person from '@/components/Person'
 
 Vue.use(Router)
 
@@ -24,17 +24,17 @@ const router = new Router({
       component: Home
     },
     {
-      path: '/list',
-      name: 'list',
-      component: List,
+      path: '/items',
+      name: 'items',
+      component: Items,
       meta: {
         requiresAuth: true
       }
     },
     {
-      path: '/p/:key/:uid',
-      name: 'person',
-      component: Person
+      path: '/i/:key/:uid',
+      name: 'item',
+      component: Item
     },
     {
       path: '/users',
