@@ -1,9 +1,10 @@
 <template>
   <b-row>
+    <!-- create item -->
     <b-icon-plus-circle-fill id="crear" class="shadow"
       @click="modalCreate = !modalCreate"
       variant="primary"></b-icon-plus-circle-fill>
-
+    <!-- create item modal -->
     <b-modal v-model="modalCreate" hide-footer>
       <template v-slot:modal-title>
         <h4>Producto nuevo</h4>
@@ -18,8 +19,9 @@
       </template>
 
       <b-form @submit.prevent="add()" >
+        <!-- name -->
         <b-form-group label="Nombre" label-for="name">
-          <b-input
+          <b-input required
             id="name"
             v-model="item.name"
             type="text"
@@ -27,8 +29,9 @@
             placeholder='Nombre'
           ></b-input>
         </b-form-group>
+        <!-- desc -->
         <b-form-group label="Descripción" label-for="desc">
-          <b-form-textarea
+          <b-form-textarea required
             id="desc"
             v-model="item.desc"
             placeholder="Descripcion del producto..."
@@ -36,6 +39,28 @@
             max-rows="6"
           ></b-form-textarea>
         </b-form-group>
+        <!-- price -->
+        <b-form-group label="Precio" label-for="price">
+          <b-input required
+            id="price"
+            v-model="item.price"
+            type="number"
+            step="0.01"
+            placeholder='Precio'
+          ></b-input>
+        </b-form-group>
+        <!-- qty -->
+        <b-form-group label="Cantidad" label-for="qty">
+          <b-input required
+            id="qty"
+            v-model="item.qty"
+            type="number"
+            step="1"
+            min="0"
+            placeholder='Cantidad'
+          ></b-input>
+        </b-form-group>
+
         <b-button type="submit" variant="primary">Agregar</b-button>
       </b-form>
     </b-modal>

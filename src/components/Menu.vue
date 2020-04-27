@@ -54,9 +54,6 @@ export default {
   width: 3rem;
   border-radius: 50%
 }
-.shadow{
-  box-shadow: 0 0.25rem 0.25rem rgba(0,0,0,.25), inset 0 -1px 5px rgba(0,0,0,.25);
-}
 #menu{
   background-color: rgb(52, 73, 94);
   background-color: #563d7c;

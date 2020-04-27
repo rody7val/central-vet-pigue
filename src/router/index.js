@@ -7,6 +7,7 @@ import Home from '@/components/Home'
 import Items from '@/components/Items'
 import Item from '@/components/Item'
 import Users from '@/components/Users'
+import ItemPublic from '@/components/ItemPublic'
 
 Vue.use(Router)
 
@@ -30,6 +31,11 @@ const router = new Router({
       meta: {
         requiresAuth: true
       }
+    },
+    {
+      path: '/p/:key',
+      name: 'itemPublic',
+      component: ItemPublic
     },
     {
       path: '/i/:key/:uid',
