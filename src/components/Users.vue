@@ -1,4 +1,5 @@
 <template>
+<b-container fluid>
   <b-row>
     <b-col md="8" sm="12">
     <h3 class="display-4">Usuarios registrados</h3>
@@ -12,6 +13,7 @@
     </b-list-group>
     </b-col>
   </b-row>
+</b-container>
 </template>
 
 <script>

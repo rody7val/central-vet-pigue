@@ -1,4 +1,5 @@
 <template>
+<b-container fluid>
   <b-row>
     <!-- create item -->
     <b-icon-plus-circle-fill id="crear" class="shadow"
@@ -66,7 +67,7 @@
     </b-modal>
 
     <b-col md="8" sm="12">
-      <h3 class="display-4">Productos</h3>
+      <h3 class="display-4">Inventario</h3>
       <b-spinner v-if="!items.length" variant="primary" label="Spinning"></b-spinner>
       <b-list-group v-else>
         <b-list-group-item v-for='(item, index) in items'
@@ -81,11 +82,15 @@
                 uid: item.uid
               }
             }">{{item.name}}</router-link>
+          <b-badge class="mr-2" style="cursor: initial"
+            :variant="item.qty > 0 ? 'success' : 'danger'">{{ item.qty || 0 }} u</b-badge>
           <b-badge variant="danger" @click='remove(item)'>borrar</b-badge>
         </b-list-group-item>
       </b-list-group>
+      <br><br><br><br>
     </b-col>
   </b-row>
+</b-container>
 </template>
 
 <script>

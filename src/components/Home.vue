@@ -1,58 +1,55 @@
 <template>
   <div>
-  <b-jumbotron style="background-color: #fff">
-    <template v-slot:header>Veterinaria Central Vet</template>
-
-    <template v-slot:lead>
+  <b-jumbotron bg-variant="primary" text-variant="white" style="margin-bottom: 0px" fluid>
+    <template v-slot:header fluid>Veterinaria Central-Vet</template>
+    <template v-slot:lead fluid>
       <b>Bienvenidos!</b>
-      <p>Encontrá los mejores productos en nuestra central veterinaria de Pigüé</p>
+      <p>Encontrá los mejores productos y servicios en nuestra Central Veterinaria de Pigüé</p>
     </template>
 
     <hr class="my-4">
+    <b-button to="/p" class='btn-vete'>Productos</b-button>
+    <b-button to="/s" variant='dark'>Servicios</b-button>
   </b-jumbotron>
-
-  <h3 class="display-4">Productos</h3>
-  <br>
-  <b-card-group columns>
-    <router-link v-for='(item, index) in items' :key="index"
-      :to="{
-        name: 'itemPublic',
-        params: { key: item['.key'] }
-      }">
-      <b-card
-        :title="item.price ? '$ ' + item.price : 0"
-        :img-src="item.img"
-        :img-alt="item.name"
-        img-top
-      >
-        <p class="lead">{{item.name}}</p>
-        <hr>
-        <b-badge class="mr-2" style="cursor: initial"
-          :variant="item.qty > 0 ? 'success' : 'danger'">{{ item.qty || 0 }} u</b-badge>
-      </b-card>
-    </router-link>
-  </b-card-group>
-  </div>
+  <b-carousel
+    controls
+    id="carousel-fade"
+    style="text-shadow: 0px 0px 2px #000"
+    fade
+    indicators
+    img-width="1024"
+    img-height="480"
+  >
+    <b-carousel-slide
+      caption="Gatos"
+      img-src="https://placekitten.com/600/400"
+    ></b-carousel-slide>
+    <b-carousel-slide
+      caption="Animales"
+      img-src="https://placekitten.com/1024/768"
+    ></b-carousel-slide>
+    <b-carousel-slide
+      caption="Veterinaria"
+      img-src="https://placekitten.com/900/800"
+    ></b-carousel-slide>
+  </b-carousel>
+</div>
 </template>
 
 <script>
 export default {
-  name: 'Home',
-  firestore () {
-    return {
-      items: this.$db.collection('items')
-    }
-  }
+  name: 'Home'
 }
 </script>
 
 <style scoped>
-a, .card, .card:focus, .card:hover {
-  color: #212529!important;
-  text-decoration: none!important;
-  cursor: pointer;
+.btn-vete{
+  color: #fff;
+  background-color: #563d7c;
+  border-color: #7952b3;
 }
-.card:hover{
-  box-shadow: 0 0.25rem 0.25rem rgba(0,0,0,.25), inset 0 -1px 5px rgba(0,0,0,.25);
+.btn-vete:focus,.btn-vete:active,.btn-vete:hover,.btn-vete:visited,.btn-vete:focus-within{
+  background-color: #7952b3!important;
+  border-color: #563d7c!important;
 }
 </style>

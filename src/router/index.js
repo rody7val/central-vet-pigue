@@ -2,12 +2,13 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import firebase from 'firebase'
 
-import About from '@/components/About'
 import Home from '@/components/Home'
+import ItemsPublic from '@/components/ItemsPublic'
+import ItemPublic from '@/components/ItemPublic'
+import Services from '@/components/Services'
 import Items from '@/components/Items'
 import Item from '@/components/Item'
 import Users from '@/components/Users'
-import ItemPublic from '@/components/ItemPublic'
 
 Vue.use(Router)
 
@@ -15,14 +16,24 @@ const router = new Router({
   mode: 'history',
   routes: [
     {
-      path: '/about',
-      name: 'about',
-      component: About
-    },
-    {
       path: '/',
       name: 'home',
       component: Home
+    },
+    {
+      path: '/p',
+      name: 'itemsPublic',
+      component: ItemsPublic
+    },
+    {
+      path: '/p/:key',
+      name: 'itemPublic',
+      component: ItemPublic
+    },
+    {
+      path: '/s',
+      name: 'services',
+      component: Services
     },
     {
       path: '/items',
@@ -31,11 +42,6 @@ const router = new Router({
       meta: {
         requiresAuth: true
       }
-    },
-    {
-      path: '/p/:key',
-      name: 'itemPublic',
-      component: ItemPublic
     },
     {
       path: '/i/:key/:uid',

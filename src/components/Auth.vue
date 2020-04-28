@@ -1,16 +1,18 @@
 <template>
   <div>
-    <b-nav-item-dropdown right v-if='$user'>
+    <b-nav-item-dropdown right v-if='$user' left>
       <template v-slot:button-content>
         <b-avatar class="mr-1"
         variant="dark"
         size="2rem"
         :src='$user.photoURL'></b-avatar>
       </template>
+      <b-dropdown-item to='/items'>Inventario</b-dropdown-item>
+      <b-dropdown-item to='/users'>Usuariosr</b-dropdown-item>
       <b-dropdown-item @click='signOut'>Salir</b-dropdown-item>
     </b-nav-item-dropdown>
 
-    <b-button variant='outline-primary' v-if='!$user' @click='signIn'>
+    <b-button variant='primary' v-if='!$user' @click='signIn'>
       <b-icon-people-circle></b-icon-people-circle> <small>ACCEDER</small>
     </b-button>
   </div>
@@ -43,12 +45,4 @@ export default {
 </script>
 
 <style scoped>
-button, button:hover{
-  background-color: #fff;
-  color: #007bff;
-}
-.box {
-  display: flex;
-  align-items:center;
-}
 </style>

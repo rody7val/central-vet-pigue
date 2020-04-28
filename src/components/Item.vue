@@ -1,4 +1,5 @@
 <template>
+  <b-container fluid>
   <b-row>
     <b-col sm="12" md="6" lg="5">
       <b-spinner v-if="!items.length" variant="primary" label="Spinning"></b-spinner>
@@ -88,6 +89,7 @@
   <a class="back btn btn-link" @click="$router.go(-1)">Volver</a>
     </b-col>
   </b-row>
+</b-container>
 </template>
 
 <script>

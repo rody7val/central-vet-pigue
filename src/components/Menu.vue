@@ -1,6 +1,6 @@
 <template>
   <b-navbar toggleable="sm" type="dark" id="menu" class="shadow">
-    <b-container fluid="sm">
+    <b-container fluid>
       <b-navbar-brand to="/">
         <img src="@/assets/logo-central-vet.jpg" id="logo">
       </b-navbar-brand>
@@ -17,9 +17,6 @@
 
         <!-- Right -->
         <b-navbar-nav class="ml-auto">
-          <b-nav-item v-if="$user" v-for='(link, i) in navAdmin'
-            :key="i"
-            :to='link.to'>{{link.name}}</b-nav-item>
           <Auth/>
         </b-navbar-nav>
       </b-collapse>
@@ -37,12 +34,9 @@ export default {
   name: 'Menu',
   data () {
     return {
-      navAdmin: [
-        { to: '/items', name: 'Productos' },
-        { to: '/users', name: 'Usuarios' }
-      ],
       nav: [
-        { to: '/about', name: 'Información' }
+        { to: '/p', name: 'Productos' },
+        { to: '/s', name: 'Servicios' }
       ]
     }
   }
@@ -56,6 +50,7 @@ export default {
 }
 #menu{
   background-color: rgb(52, 73, 94);
+  background-color: #7952b3;
   background-color: #563d7c;
 }
 .box {
