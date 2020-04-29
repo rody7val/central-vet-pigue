@@ -35,8 +35,7 @@ export default {
   data () {
     return {
       nav: [
-        { to: '/p', name: 'Productos' },
-        { to: '/s', name: 'Servicios' }
+        { to: '/p', name: 'Productos' }
       ]
     }
   }

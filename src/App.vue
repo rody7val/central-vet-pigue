@@ -2,7 +2,7 @@
   <div id='app'>
     <Menu/>
     <router-view/>
-    <b-jumbotron bg-variant="dark" text-variant="white" style="margin-bottom: 0px" fluid>
+    <b-jumbotron bg-variant="dark" text-variant="white" class="mb-0" fluid>
       <template v-slot:header></template>
       <template v-slot:lead></template>
       <hr class="my-4">
@@ -39,6 +39,9 @@ body{
   display: flex;
   align-items:center;
 }
+#nav-collapse{
+  text-align: right!important;
+}
 time, .time{
   text-transform: uppercase!important;
   color: #8e8e8e!important;
@@ -56,29 +59,7 @@ time, .time{
   background-color: #7952b3!important;
   border-color: #563d7c!important;
 }
-.itemName{
-  font-size: 1.25rem!important;
-}
-
-/*lg*/
-@media (max-width: 991px) {
-  .itemName{
-    font-size: 1.25rem!important;
-  }
-}
-/*md*/
-@media (max-width: 776px) {
-  .itemName{
-    font-size: 18px!important;
-  }
-}
-/*sm*/
-
-/*col*/
 @media (max-width: 575px) {
-  .itemName, .itemDesc{
-    font-size: 14px!important;
-  }
   .display-3{
     font-size: 3rem!important
   }

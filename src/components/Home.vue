@@ -1,36 +1,33 @@
 <template>
   <div>
-  <b-jumbotron bg-variant="primary" text-variant="white" style="margin-bottom: 0px" fluid>
+  <b-jumbotron bg-variant="primary" text-variant="white" class="mb-0" fluid>
     <template v-slot:header fluid>Veterinaria Central-Vet</template>
-    <template v-slot:lead fluid>
+    <template v-slot:lead fluid >
       <b>Bienvenidos!</b>
       <p>Encontrá los mejores productos y servicios en nuestra Central Veterinaria de Pigüé</p>
     </template>
 
     <hr class="my-4">
     <b-button to="/p" class='btn-vete'>Productos</b-button>
-    <b-button to="/s" variant='dark'>Servicios</b-button>
   </b-jumbotron>
   <b-carousel
     controls
     id="carousel-fade"
     style="text-shadow: 0px 0px 2px #000"
-    fade
+    slide
     indicators
-    img-width="1024"
-    img-height="480"
   >
     <b-carousel-slide
-      caption="Gatos"
-      img-src="https://placekitten.com/600/400"
+      caption="Clínica"
+      img-src="https://placekitten.com/1100/300"
     ></b-carousel-slide>
     <b-carousel-slide
-      caption="Animales"
-      img-src="https://placekitten.com/1024/768"
+      caption="Cirugía"
+      img-src="https://placekitten.com/1100/300"
     ></b-carousel-slide>
     <b-carousel-slide
-      caption="Veterinaria"
-      img-src="https://placekitten.com/900/800"
+      caption="Vacunación"
+      img-src="https://placekitten.com/1100/300"
     ></b-carousel-slide>
   </b-carousel>
 </div>

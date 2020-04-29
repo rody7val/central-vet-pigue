@@ -5,7 +5,6 @@ import firebase from 'firebase'
 import Home from '@/components/Home'
 import ItemsPublic from '@/components/ItemsPublic'
 import ItemPublic from '@/components/ItemPublic'
-import Services from '@/components/Services'
 import Items from '@/components/Items'
 import Item from '@/components/Item'
 import Users from '@/components/Users'
@@ -29,11 +28,6 @@ const router = new Router({
       path: '/p/:key',
       name: 'itemPublic',
       component: ItemPublic
-    },
-    {
-      path: '/s',
-      name: 'services',
-      component: Services
     },
     {
       path: '/items',

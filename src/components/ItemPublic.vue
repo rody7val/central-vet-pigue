@@ -1,6 +1,7 @@
 <template>
 <b-container class="itemContainer" fluid>
   <a class="back btn btn-link" @click="$router.go(-1)">Volver</a>
+
   <b-card>
     <b-row>
       <b-col cols="4" sm="6" md="7" lg="7">
