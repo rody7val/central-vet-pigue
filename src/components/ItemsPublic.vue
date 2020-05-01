@@ -1,5 +1,5 @@
 <template>
-<b-container class="itemContainer" fluid >
+<b-container class="itemContainer" fluid="md" >
   <!-- link -->
   <b-row>
     <b-col>
@@ -65,7 +65,7 @@
                   </router-link>
                   <h3>$ {{item.price}}</h3>
                   <b-badge class="mr-2" style="cursor: initial"
-                    :variant="item.qty > 0 ? 'success' : 'danger'">{{ item.qty || 0 }} u</b-badge>
+                    :variant="item.qty > 0 ? 'primary' : 'danger'">{{ item.qty || 0 }} u</b-badge>
                 </b-col>
               </b-row>
             </b-container>

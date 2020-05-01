@@ -1,8 +1,8 @@
 <template>
-  <b-container fluid>
+  <b-container fluid="md">
     <a class="back btn btn-link" @click="$router.go(-1)">Volver</a>
   <b-row>
-    <b-col sm="12" md="6" lg="5">
+    <b-col sm="12" md="10" lg="8">
       <b-spinner v-if="!items.length" variant="primary" label="Spinning"></b-spinner>
       <b-card v-else img-top :img-src="edit ? itemEdit.img : item.img">
 
@@ -82,7 +82,7 @@
         <p>{{ item.desc }}</p>
         <p class="lead">$ {{ item.price || 0 }}</p>
         <p><b-badge class="mr-2" style="cursor: initial"
-        :variant="item.qty > 0 ? 'success' : 'danger'">{{ item.qty || 0 }} Unidades</b-badge></p>
+        :variant="item.qty > 0 ? 'primary' : 'danger'">{{ item.qty || 0 }} u</b-badge></p>
       </div>
       <hr>
       <small class="box">

@@ -1,6 +1,6 @@
 <template>
   <b-navbar toggleable="sm" type="dark" id="menu" class="shadow">
-    <b-container fluid>
+    <b-container fluid="md">
       <b-navbar-brand to="/">
         <img src="@/assets/logo-central-vet.jpg" id="logo">
       </b-navbar-brand>

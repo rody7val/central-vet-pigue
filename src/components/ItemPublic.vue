@@ -1,5 +1,5 @@
 <template>
-<b-container class="itemContainer" fluid>
+<b-container class="itemContainer" fluid="md">
   <a class="back btn btn-link" style="color: #007bff!important;" @click="$router.go(-1)">Volver</a>
   <b-row>
     <b-col cols="12" sm="12" md="10" lg="8">
@@ -16,16 +16,13 @@
             <br>
             <small><time>Nuevo</time></small>
             <b-badge class="mr-2" style="cursor: initial; float: right"
-              :variant="item.qty > 0 ? 'success' : 'danger'">{{ item.qty || 0 }} u</b-badge>
+              :variant="item.qty > 0 ? 'primary' : 'danger'">{{ item.qty || 0 }} u</b-badge>
             <h2 class="lead itemName">{{item.name}}</h2>
             <h1>$ {{item.price}}</h1>
             <hr>
             <p class="itemDesc">{{item.desc}}</p>
-            <b-button size="sm" class="mb-2" variant="success" v-b-modal="'my-modal'">Comprar</b-button>
+            <form id="ButtonMP" action="/procesar-pago" method="POST"></form>
             <br>
-            <b-modal id="my-modal" title="Metodos de Pago" hide-footer>
-              <p>CBU, Contra Reembolso o MercadoPago</p>
-            </b-modal>
           </b-col>
         </b-row>
       </b-card>
@@ -42,6 +39,33 @@ export default {
     return {
       item: this.$db.collection('items').doc(this.$route.params.key)
     }
+  },
+  data () {
+    return {
+      initPoint: 'not'
+    }
+  },
+  mounted () {
+    let preference = {
+      items: [
+        {
+          title: this.item.title,
+          unit_price: Number(this.item.price),
+          quantity: 1
+        }
+      ]
+    }
+    this.$mp.preferences.create(preference).then(response => {
+      console.log(response)
+      global.init_point = response.body.init_point
+      this.initPoint = response.body.init_point
+    }).catch(error => {
+      console.log(error)
+    })
+    let mpScript = document.createElement('script')
+    mpScript.setAttribute('src', 'https://www.mercadopago.com.ar/integrations/v1/web-payment-checkout.js')
+    mpScript.setAttribute('data-preference-id', this.initPoint)
+    document.getElementById('ButtonMP').appendChild(mpScript)
   }
 }
 </script>

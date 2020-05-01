@@ -1,5 +1,5 @@
 <template>
-<b-container fluid>
+<b-container fluid="md">
   <!-- fixed -->
   <CreateItem/>
 
@@ -22,7 +22,7 @@
               }
             }">{{item.name}}</router-link>
           <b-badge class="mr-2" style="cursor: initial"
-            :variant="item.qty > 0 ? 'success' : 'danger'">{{ item.qty || 0 }} u</b-badge>
+            :variant="item.qty > 0 ? 'primary' : 'danger'">{{ item.qty || 0 }} u</b-badge>
           <b-badge variant="danger" @click='remove(item)'>borrar</b-badge>
         </b-list-group-item>
       </b-list-group>

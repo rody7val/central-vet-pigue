@@ -1,5 +1,5 @@
 <template>
-<b-container fluid>
+<b-container fluid="md">
   <b-row>
     <b-col md="8" sm="12">
     <h3>Usuarios registrados</h3>
