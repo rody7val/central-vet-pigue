@@ -1,5 +1,6 @@
 <template>
   <b-container fluid>
+    <a class="back btn btn-link" @click="$router.go(-1)">Volver</a>
   <b-row>
     <b-col sm="12" md="6" lg="5">
       <b-spinner v-if="!items.length" variant="primary" label="Spinning"></b-spinner>
@@ -22,7 +23,7 @@
       <div v-if='edit'>
         <b-form @submit.prevent="update(item)" >
           <!-- name -->
-          <b-form-group>
+          <b-form-group label="Nombre">
             <b-input required
               id="name"
               v-model="itemEdit.name"
@@ -32,7 +33,7 @@
             ></b-input>
           </b-form-group>
           <!-- desc -->
-          <b-form-group>
+          <b-form-group label="Descripcion">
             <b-form-textarea required
               id="desc"
               v-model="itemEdit.desc"
@@ -62,6 +63,10 @@
               placeholder='Cantidad'
             ></b-input>
           </b-form-group>
+        <!-- tags -->
+        <b-form-group label="Marca" label-for="Tags">
+          <b-form-tags input-id="tags" v-model="itemEdit.tags" class="mb-2"></b-form-tags>
+        </b-form-group>
 
           <div v-if="load">
             <b-spinner variant="primary" label="Spinning"></b-spinner>
@@ -86,7 +91,7 @@
         </time>
       </small>
   </b-card>
-  <a class="back btn btn-link" @click="$router.go(-1)">Volver</a>
+<br>
     </b-col>
   </b-row>
 </b-container>
@@ -109,8 +114,16 @@ export default {
     }
   },
   methods: {
+    createMap (arr) {
+      let mapTags = {}
+      arr.map(item => {
+        mapTags[item.toLowerCase().replace(' ', '')] = true
+      })
+      return mapTags
+    },
     handleEdit () {
       this.edit = !this.edit
+      this.itemEdit.tags = []
     },
     update (e) {
       this.load = true
@@ -119,7 +132,8 @@ export default {
         desc: this.itemEdit.desc,
         img: this.itemEdit.img,
         price: this.itemEdit.price,
-        qty: this.itemEdit.qty
+        qty: this.itemEdit.qty,
+        tags: this.createMap(this.itemEdit.tags)
       }).then(() => {
         this.handleEdit()
         this.load = false
@@ -158,9 +172,6 @@ export default {
 <style scoped>
 h3{
   font-size: 40px;
-}
-.card {
-  margin-top: 45px
 }
 .card-body a {
   color: #212529;

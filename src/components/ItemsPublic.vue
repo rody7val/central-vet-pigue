@@ -1,6 +1,6 @@
 <template>
-<b-container class="itemContainer" fluid>
-  <!-- 1_ link -->
+<b-container class="itemContainer" fluid >
+  <!-- link -->
   <b-row>
     <b-col>
       <p></p>
@@ -8,47 +8,39 @@
     </b-col>
   </b-row>
 
-  <!-- 2_ category y tags -->
+  <!-- tags -->
   <b-row>
-    <b-col md="2" lg="3"></b-col>
-
-    <b-col md="8" lg="6">
+    <b-col md="2" lg="2"></b-col>
+    <b-col md="8" lg="8">
     <b-row>
       <b-col cols="10" sm="7" md="7" lg="7">
-        <b-form-group label="Categoria:">
-          <b-form-radio-group
-            v-model="category"
-            :options="categories"
-            button-variant="primary"
-            buttons
-          ></b-form-radio-group>
+        <b-form-group>
+          <b-input-group size="sm" class="mb-2">
+            <b-input-group-prepend is-text variant="primary">
+              <b-icon icon="tag"></b-icon>
+            </b-input-group-prepend>
+                <b-form-select @input="getItems" v-model="tag" :options="tags">
+                  <template v-slot:first>
+                    <b-form-select-option :value="''" disabled>Que marca?</b-form-select-option>
+                  </template>
+                </b-form-select>
+          </b-input-group>
         </b-form-group>
       </b-col>
-
-      <b-col cols="10" sm="5" md="5" lg="5">
-
-      <b-form-group label="Filtrar:">
-        <b-form-input
-          v-model="search"
-          type="text"
-          placeholder="🔍"
-        ></b-form-input>
-      </b-form-group>
-      </b-col>
     </b-row>
-    </b-col><b-col md="2" lg="3"></b-col>
+    </b-col><b-col md="2" lg="2"></b-col>
   </b-row>
 
   <!-- 3_ items -->
   <b-row>
-    <b-col md="2" lg="3"></b-col>
-    <b-col sm="12" md="8" lg="6" class="m-0 p-0">
-      <div v-if="!category">
-        <b-alert variant="info" show>Selecciona una <b>categoría</b> para ver resultados</b-alert>
+    <b-col md="2" lg="2"></b-col>
+    <b-col sm="12" md="8" lg="8" class="m-0 p-0">
+      <div v-if="!tag">
+        <b-alert variant="info" show>Seleccione una <b>Marca</b></b-alert>
         <br><br><br><br><br>
       </div>
       <div v-else>
-        <b-spinner v-if="!items.length" variant="primary" label="Spinning"></b-spinner>
+        <b-spinner v-if="!items.length" variant="primary" label="Spinning"><br><br><br><br></b-spinner>
         <b-list-group v-else>
           <b-list-group-item v-for='(item, index) in items' class="m-0 p-0"
             :key='index'>
@@ -60,7 +52,7 @@
                       name: 'itemPublic',
                       params: { key: item['.key'] }
                     }">
-                    <b-img class="m-0 p-0 imgItem" :src="item.img" fluid></b-img>
+                    <b-img class="m-0 p-0 imgItem card-img-top" :src="item.img" fluid></b-img>
                   </router-link>
                 </b-col>
                 <b-col lg="9" md="9" sm="9" cols="8">
@@ -82,7 +74,7 @@
       </div>
       <br>
     </b-col>
-    <b-col md="2" lg="3"></b-col>
+    <b-col md="2" lg="2"></b-col>
   </b-row>
 
 </b-container>
@@ -93,26 +85,47 @@ export default {
   name: 'ItemsPublic',
   firestore () {
     return {
-      items: this.$db.collection('items')
+      tags: this.$db.collection('tags')
+    }
+  },
+  methods: {
+    getItems () {
+      const prop = `tags.${this.tag}`
+      this.items = []
+
+      this.$db.collection('items').where(prop, '==', true).get().then(snap => {
+        snap.forEach(doc => {
+          let item = doc.data()
+          item['.key'] = doc.id // add .key
+          this.items = this.items.concat(item)
+        })
+      }).catch(error => {
+        alert('Error getting documents: ', error)
+      })
     }
   },
   data () {
     return {
-      // categorias
-      category: 'food',
-      categories: [
-        { text: 'Alimento', value: 'food' },
-        { text: 'Accesorios', value: 'accessory' },
-        { text: 'Farmacia', value: 'drug' }
-      ],
-      // filter
-      search: ''
+      tags: [],
+      tag: '',
+      items: []
     }
   }
 }
 </script>
 
 <style scoped>
+.resetCategory .input-group-text{
+  background-color: #007bff;
+  border-color: #007bff;
+  cursor: pointer;
+  color: #fff;
+}
+.resetCategory .input-group-text:hover{
+  color: #fff;
+  background-color: #0069d9;
+  border-color: #0062cc;
+}
 .m-0, .p-0{
   margin: 0!important;
   padding: 0!important;
@@ -143,7 +156,7 @@ img{
 
 }
 .itemName{
-  font-size: 1.25rem!important;
+  font-size: 1.5rem!important;
 }
   .imgItem{
     margin: 0 auto!important;
@@ -152,7 +165,7 @@ img{
 /*lg*/
 @media (max-width: 991px) {
   .itemName{
-    font-size: 1.25rem!important;
+    font-size: 1.2rem!important;
   }
     .imgItem{
     margin: 0 auto!important;
@@ -168,11 +181,13 @@ img{
   }
 }
 /*sm*/
-
 /*col*/
 @media (max-width: 575px) {
+  .form-group{
+    margin-bottom: 0px;
+  }
   .itemName, .itemDesc{
-    font-size: 14px!important;
+    font-size: 16px!important;
   }
 }
 </style>

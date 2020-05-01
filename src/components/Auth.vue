@@ -8,11 +8,11 @@
         :src='$user.photoURL'></b-avatar>
       </template>
       <b-dropdown-item to='/items'>Inventario</b-dropdown-item>
-      <b-dropdown-item to='/users'>Usuariosr</b-dropdown-item>
+      <b-dropdown-item to='/users'>Usuarios</b-dropdown-item>
       <b-dropdown-item @click='signOut'>Salir</b-dropdown-item>
     </b-nav-item-dropdown>
 
-    <b-button variant='primary' v-if='!$user' @click='signIn'>
+    <b-button size="sm" variant='primary' v-if='!$user' @click='signIn'>
       <b-icon-people-circle></b-icon-people-circle> <small>ACCEDER</small>
     </b-button>
   </div>

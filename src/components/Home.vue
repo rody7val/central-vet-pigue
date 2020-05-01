@@ -15,8 +15,7 @@
     id="carousel-fade"
     style="text-shadow: 0px 0px 2px #000"
     slide
-    indicators
-  >
+    indicators>
     <b-carousel-slide
       caption="Clínica"
       img-src="https://placekitten.com/1100/300"

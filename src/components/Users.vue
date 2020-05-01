@@ -2,7 +2,7 @@
 <b-container fluid>
   <b-row>
     <b-col md="8" sm="12">
-    <h3 class="display-4">Usuarios registrados</h3>
+    <h3>Usuarios registrados</h3>
     <b-spinner v-if="!users.length" variant="primary" label="Spinning"></b-spinner>
     <b-list-group v-else
       v-for='(user, index) in users' :key='index'>
@@ -36,6 +36,5 @@ export default {
 p{margin: 0}
 h3{
   margin-top: 30px;
-  font-size: 45px;
 }
 </style>

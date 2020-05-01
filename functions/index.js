@@ -17,8 +17,8 @@ exports.welcome = functions.auth.user().onCreate( user => {
   return true
 })
 
-exports.createPerson = functions.firestore.document('items/{id}').onCreate((snap, context) => {
-  return snap.ref.set({
-    created: Date.now()
+exports.createItem = functions.firestore.document('items/{id}').onCreate((snap, context) => {
+  snap.ref.set({
+    created: Date.now(),
   }, { merge: true })
 })
