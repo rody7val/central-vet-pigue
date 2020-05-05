@@ -1,5 +1,5 @@
 <template>
-<b-container fluid="md">
+<b-container id="u" fluid="md">
   <b-row>
     <b-col md="8" sm="12">
     <h3>Usuarios registrados</h3>
@@ -33,6 +33,9 @@ export default {
 </script>
 
 <style scoped>
+#u{
+  min-height: 600px
+}
 p{margin: 0}
 h3{
   margin-top: 30px;

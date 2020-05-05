@@ -21,7 +21,6 @@
             <h1>$ {{item.price}}</h1>
             <hr>
             <p class="itemDesc">{{item.desc}}</p>
-            <form id="ButtonMP" action="/procesar-pago" method="POST"></form>
             <br>
           </b-col>
         </b-row>
@@ -40,32 +39,24 @@ export default {
       item: this.$db.collection('items').doc(this.$route.params.key)
     }
   },
-  data () {
-    return {
-      initPoint: 'not'
-    }
-  },
-  mounted () {
-    let preference = {
+  updated () {
+    let createPreference = this.$firebase.functions().httpsCallable('createPreference')
+    createPreference({
       items: [
         {
-          title: this.item.title,
-          unit_price: Number(this.item.price),
-          quantity: 1
+          title: 'h',
+          unit_price: 1300,
+          quantity: 1,
+          currency_id: 'ARS'
         }
       ]
-    }
-    this.$mp.preferences.create(preference).then(response => {
-      console.log(response)
-      global.init_point = response.body.init_point
-      this.initPoint = response.body.init_point
-    }).catch(error => {
-      console.log(error)
+    }).then(result => {
+      console.log(result)
+      let mpScript = document.createElement('script')
+      mpScript.setAttribute('src', 'https://www.mercadopago.com.ar/integrations/v1/web-payment-checkout.js')
+      mpScript.setAttribute('data-preference-id', result.data.init_point)
+      document.getElementById('ButtonMP').appendChild(mpScript)
     })
-    let mpScript = document.createElement('script')
-    mpScript.setAttribute('src', 'https://www.mercadopago.com.ar/integrations/v1/web-payment-checkout.js')
-    mpScript.setAttribute('data-preference-id', this.initPoint)
-    document.getElementById('ButtonMP').appendChild(mpScript)
   }
 }
 </script>

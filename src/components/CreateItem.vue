@@ -1,10 +1,6 @@
 <template>
-<div>
-    <!-- create item -->
-    <b-icon-plus-circle-fill id="crear" class="shadow"
-      @click="modalCreate = !modalCreate"
-      variant="primary"></b-icon-plus-circle-fill>
-    <!-- create item modal -->
+ <b-button v-if="isAdmin()" variant="primary" class="pt-0" size="sm" @click="modalCreate = !modalCreate">
+  crear
     <b-modal v-model="modalCreate" hide-footer>
       <template v-slot:modal-title>
         <h4>Producto nuevo</h4>
@@ -60,47 +56,100 @@
             placeholder='Cantidad'
           ></b-input>
         </b-form-group>
+        <!-- category -->
+        <b-form-group label="Categoria" label-for="category">
+          <b-form-select id="category" @change="getTags" required v-model="item.category" :options="categories">
+            <template v-slot:first>
+              <b-form-select-option :value="''">Que categoria?</b-form-select-option>
+            </template>
+          </b-form-select>
+        </b-form-group>
         <!-- tags -->
-        <b-form-group label="Marca" label-for="Tags">
-          <b-form-tags input-id="tags" v-model="item.tags" class="mb-2"></b-form-tags>
+        <b-form-group label="Marca" label-for="tag">
+          <b-form-select id="tag" required v-model="item.tag" :options="tags">
+            <template v-slot:first>
+              <b-form-select-option :value="''">{{!tags.length ? 'no hay marcas para '+item.category : 'Que marca?'}}</b-form-select-option>
+            </template>
+          </b-form-select>
+        </b-form-group>
+        <!-- pay -->
+        <b-form-group label="Boton de MercadoPago" label-for="pay_button">
+          <b-input
+            id="pay_button"
+            v-model="item.pay_button"
+            type="text"
+            class="mb-2 mr-sm-2 mb-sm-0"
+            placeholder='Boton de MercadoPago'
+          ></b-input>
         </b-form-group>
 
         <b-button type="submit" variant="primary">Agregar</b-button>
       </b-form>
     </b-modal>
-</div>
+</b-button>
 </template>
 
 <script>
 
 export default {
   name: 'CreateItem',
+  props: ['categories'],
+  firestore () {
+    return {
+      user: this.$db.collection('users').where('uid', '==', this.$user ? this.$user.uid : '')
+    }
+  },
   data () {
     return {
       modalCreate: false,
       uploadValue: 0,
       File: null,
+      tags: [],
       item: {
+        pay_button: '',
         uid: this.$user.uid,
         name: '',
         img: '',
         qty: 0,
         price: 0,
-        tags: []
+        category: '',
+        tag: ''
       }
     }
   },
   methods: {
+    isAdmin () {
+      return this.user && this.user.length ? this.user[0].admin : null
+    },
+    getTags (e) {
+      console.log(e)
+      this.tags = []
+
+      this.$db.collection('tags')
+        .where('cid', '==', this.get_category_key(e)).get().then(snap => {
+          snap.forEach(doc => {
+            let tag = doc.data()
+            tag['.key'] = doc.id // add .key
+            this.tags = this.tags.concat(tag)
+          })
+        }).catch(error => {
+          alert('Error getting documents: ', error)
+        })
+    },
+    get_category_key (e) {
+      let index = this.categories.map(obj => { return obj.value }).indexOf(e)
+      return this.categories[index]['.key']
+    },
     createMap (arr) {
       let mapTags = {}
       arr.map(item => {
-        mapTags[item.toLowerCase().replace(' ', '')] = true
+        mapTags[item.toLowerCase().split(' ').join('')] = true
       })
       return mapTags
     },
     create () {
-      this.item.tags = this.createMap(this.item.tags) // prepare item.tags to index firestore
       this.$db.collection('items').add(this.item).then(() => {
+        this.item.pay_button = ''
         this.item.uid = ''
         this.item.name = ''
         this.item.img = ''
@@ -137,14 +186,4 @@ export default {
 </script>
 
 <style scoped>
-#crear{
-  background-color: #fff;
-  border-radius: 50%;
-  cursor: pointer;
-  font-size: 3.5rem;
-  position: fixed;
-  bottom: 25px;
-  right: 25px;
-  z-index: 100000
-}
 </style>

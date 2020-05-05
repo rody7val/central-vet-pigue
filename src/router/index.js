@@ -3,7 +3,6 @@ import Router from 'vue-router'
 import firebase from 'firebase'
 
 import Home from '@/components/Home'
-import ItemsPublic from '@/components/ItemsPublic'
 import ItemPublic from '@/components/ItemPublic'
 import Items from '@/components/Items'
 import Item from '@/components/Item'
@@ -21,21 +20,13 @@ const router = new Router({
     },
     {
       path: '/p',
-      name: 'itemsPublic',
-      component: ItemsPublic
+      name: 'items',
+      component: Items
     },
     {
       path: '/p/:key',
       name: 'itemPublic',
       component: ItemPublic
-    },
-    {
-      path: '/items',
-      name: 'items',
-      component: Items,
-      meta: {
-        requiresAuth: true
-      }
     },
     {
       path: '/i/:key/:uid',

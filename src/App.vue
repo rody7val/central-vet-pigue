@@ -1,6 +1,7 @@
 <template>
   <div id='app'>
     <Menu/>
+    <!-- <Delivery msg="Envio gratis a todo Pigüé"/> -->
     <router-view/>
     <Footer/>
   </div>
@@ -9,11 +10,13 @@
 <script>
 import Menu from '@/components/Menu'
 import Footer from '@/components/Footer'
+// import Delivery from '@/components/Delivery'
 
 export default {
   components: {
     Menu,
     Footer
+    // Delivery
   },
   name: 'App'
 }
@@ -21,7 +24,7 @@ export default {
 
 <style>
 body{
-  background-color: #e9ecef!important;
+  background-color: #f7f7f7!important;
 }
 .shadow{
   box-shadow: 0 0.25rem 0.25rem rgba(0,0,0,.25), inset 0 -1px 5px rgba(0,0,0,.25);
@@ -44,7 +47,7 @@ time, .time{
   color: #8e8e8e!important;
 }
 .card-img-top{
-  height: 250px;
+  max-height: 250px;
   object-fit: cover;
 }
 .btn-vete{

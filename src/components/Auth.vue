@@ -7,7 +7,6 @@
         size="2rem"
         :src='$user.photoURL'></b-avatar>
       </template>
-      <b-dropdown-item to='/items'>Inventario</b-dropdown-item>
       <b-dropdown-item to='/users'>Usuarios</b-dropdown-item>
       <b-dropdown-item @click='signOut'>Salir</b-dropdown-item>
     </b-nav-item-dropdown>
@@ -27,7 +26,6 @@ export default {
       const provider = new firebase.auth.GoogleAuthProvider()
       firebase.auth().signInWithPopup(provider).then(result => {
         console.log('signIn!', result)
-        this.$router.replace('/items')
       }).catch(error => {
         alert(error)
       })

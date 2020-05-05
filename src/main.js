@@ -3,19 +3,16 @@ import App from './App'
 import router from './router'
 import firebase from 'firebase'
 import VueFirestore from 'vue-firestore'
-import mercadopago from 'mercadopago'
-
 import moment from 'moment'
 import 'moment/locale/es'
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
-
 require('firebase/firestore')
-moment.locale('es')
-mercadopago.configure({ access_token: 'APP_USR-8942313801155865-042522-556e41b792303f3405807197b8599b1e-200036843' })
 
 Vue.config.productionTip = false
+moment.locale('es')
+
 Vue.use(VueFirestore)
 Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)
@@ -36,7 +33,6 @@ Vue.use(db)
 Vue.prototype.$firebase = firebase
 Vue.prototype.$db = db
 Vue.prototype.$moment = moment
-Vue.prototype.$mp = mercadopago
 
 window.onload = () => {
   firebase.auth().onAuthStateChanged((user) => {

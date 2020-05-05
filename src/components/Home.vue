@@ -1,6 +1,27 @@
 <template>
   <div>
-  <b-jumbotron bg-variant="primary" text-variant="white" class="mb-0" fluid>
+  <b-carousel
+    class=" shadow"
+    controls
+    id="carousel-fade"
+    style="text-shadow: 0px 0px 2px #000"
+    slide
+    indicators>
+    <b-carousel-slide
+      caption="Oferta 1"
+      img-src="https://placekitten.com/1100/100"
+    ></b-carousel-slide>
+    <b-carousel-slide
+      caption="Oferta 2"
+      img-src="https://placekitten.com/1100/100"
+    ></b-carousel-slide>
+    <b-carousel-slide
+      caption="Oferta 3"
+      img-src="https://placekitten.com/1100/100"
+    ></b-carousel-slide>
+  </b-carousel>
+
+  <b-jumbotron bg-variant="primary" text-variant="white" class="mb-0 shadow" fluid>
     <template v-slot:header fluid>Veterinaria Central-Vet</template>
     <template v-slot:lead fluid >
       <b>Bienvenidos!</b>
@@ -10,25 +31,7 @@
     <hr class="my-4">
     <b-button to="/p" class='btn-vete'>Productos</b-button>
   </b-jumbotron>
-  <b-carousel
-    controls
-    id="carousel-fade"
-    style="text-shadow: 0px 0px 2px #000"
-    slide
-    indicators>
-    <b-carousel-slide
-      caption="Clínica"
-      img-src="https://placekitten.com/1100/300"
-    ></b-carousel-slide>
-    <b-carousel-slide
-      caption="Cirugía"
-      img-src="https://placekitten.com/1100/300"
-    ></b-carousel-slide>
-    <b-carousel-slide
-      caption="Vacunación"
-      img-src="https://placekitten.com/1100/300"
-    ></b-carousel-slide>
-  </b-carousel>
+
 </div>
 </template>
 

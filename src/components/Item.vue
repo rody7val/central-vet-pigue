@@ -1,10 +1,8 @@
 <template>
-  <b-container fluid="md">
-    <a class="back btn btn-link" @click="$router.go(-1)">Volver</a>
+  <b-container fluid>
   <b-row>
-    <b-col sm="12" md="10" lg="8">
-      <b-spinner v-if="!items.length" variant="primary" label="Spinning"></b-spinner>
-      <b-card v-else img-top :img-src="edit ? itemEdit.img : item.img">
+    <b-col>
+      <b-card img-top :img-src="edit ? itemEdit.img : item.img">
 
       <div v-if='edit' style="position: absolute; top: 0px; right: 0px;">
         <b-form-file @change="onChangeImage"
@@ -15,7 +13,7 @@
         <b-progress :value="uploadValue" max="100" show-progress></b-progress>
       </div>
 
-      <b-badge style="float: right" class="mr-2"
+      <b-badge style="float: right" class="mt-10"
         :variant="edit ? 'dark' : 'light'"
         @click='handleEdit'>{{edit ? 'Cancelar' : 'Editar'}}</b-badge>
       <br>
@@ -63,10 +61,37 @@
               placeholder='Cantidad'
             ></b-input>
           </b-form-group>
-        <!-- tags -->
-        <b-form-group label="Marca" label-for="Tags">
-          <b-form-tags input-id="tags" v-model="itemEdit.tags" class="mb-2"></b-form-tags>
+        <!-- category -->
+        <b-form-group label="Categoria" label-for="category">
+          <b-form-select id="category" @change="getTags" required v-model="itemEdit.category" :options="categories">
+            <template v-slot:first>
+              <b-form-select-option :value="''">Que categoria?</b-form-select-option>
+            </template>
+          </b-form-select>
         </b-form-group>
+        <!-- tags -->
+        <b-form-group label="Marca" label-for="tag">
+          <b-form-select id="tag" required v-model="itemEdit.tag" :options="!categoryChange ? tags : Tags">
+            <template v-slot:first>
+              <b-form-select-option :value="''">{{!categoryChange ? (
+                !tags.length  ? 'no hay marcas para '+itemEdit.category : 'Que marca?'
+              ) : (
+                !Tags.length  ? 'no hay marcas para '+itemEdit.category : 'Que marca?'
+              ) }}</b-form-select-option>
+            </template>
+          </b-form-select>
+        </b-form-group>
+        <!-- pay -->
+        <b-form-group label="Boton de MercadoPago" label-for="pay_button">
+          <b-input
+            id="pay_button"
+            v-model="itemEdit.pay_button"
+            type="text"
+            class="mb-2 mr-sm-2 mb-sm-0"
+            placeholder='Boton de MercadoPago'
+          ></b-input>
+        </b-form-group>
+        <b-alert variant="info" show><b>Redirect: </b>{{'http://central-vet-pigue.web.app/checkout?key='+item['.key']+'&in_progress=true'}}</b-alert>
 
           <div v-if="load">
             <b-spinner variant="primary" label="Spinning"></b-spinner>
@@ -78,11 +103,13 @@
       </div>
 
       <div v-else>
-        <h4>{{ item.name }}</h4>
+        <h3 class="lead">{{ item.name }}</h3>
+        <h2>$ {{ item.price || 0 }}</h2>
         <p>{{ item.desc }}</p>
-        <p class="lead">$ {{ item.price || 0 }}</p>
-        <p><b-badge class="mr-2" style="cursor: initial"
-        :variant="item.qty > 0 ? 'primary' : 'danger'">{{ item.qty || 0 }} u</b-badge></p>
+        <p><b>Categoria:</b> {{item.category}}</p>
+        <p><b>Marca:</b> {{item.tag}}</p>
+        <p><b>Stock:</b> <b-badge class="mr-2" style="cursor: initial"
+        :variant="item.qty > 0 ? 'primary' : 'danger'">{{ item.qty || 0 }}</b-badge></p>
       </div>
       <hr>
       <small class="box">
@@ -98,22 +125,37 @@
 </template>
 
 <script>
-import User from '@/components/User'
 
 export default {
   name: 'Istem',
-  components: {
-    User
-  },
+  props: ['_key', 'tags', 'categories'],
   firestore () {
     return {
       items: this.$db.collection('items'),
-      item: this.$db.collection('items').doc(this.$route.params.key),
-      itemEdit: this.$db.collection('items').doc(this.$route.params.key),
-      user: this.$db.collection('users').where('uid', '==', this.$route.params.uid)
+      item: this.$db.collection('items').doc(this._key),
+      itemEdit: this.$db.collection('items').doc(this._key)
     }
   },
   methods: {
+    getTags (e) {
+      this.categoryChange = true
+      this.Tags = []
+
+      this.$db.collection('tags')
+        .where('cid', '==', this.get_category_key(e)).get().then(snap => {
+          snap.forEach(doc => {
+            let tag = doc.data()
+            tag['.key'] = doc.id // add .key
+            this.Tags = this.Tags.concat(tag)
+          })
+        }).catch(error => {
+          alert('Error getting documents: ', error)
+        })
+    },
+    get_category_key (e) {
+      let index = this.categories.map(obj => { return obj.value }).indexOf(e)
+      return this.categories[index]['.key']
+    },
     createMap (arr) {
       let mapTags = {}
       arr.map(item => {
@@ -123,17 +165,18 @@ export default {
     },
     handleEdit () {
       this.edit = !this.edit
-      this.itemEdit.tags = []
     },
     update (e) {
       this.load = true
       this.$firestore.items.doc(e['.key']).update({
+        pay_button: this.itemEdit.pay_button || '',
         name: this.itemEdit.name,
         desc: this.itemEdit.desc,
         img: this.itemEdit.img,
         price: this.itemEdit.price,
         qty: this.itemEdit.qty,
-        tags: this.createMap(this.itemEdit.tags)
+        category: this.itemEdit.category,
+        tag: this.itemEdit.tag
       }).then(() => {
         this.handleEdit()
         this.load = false
@@ -160,6 +203,8 @@ export default {
   },
   data () {
     return {
+      categoryChange: false,
+      Tags: [],
       uploadValue: 0,
       File: null,
       load: false,
@@ -170,9 +215,6 @@ export default {
 </script>
 
 <style scoped>
-h3{
-  font-size: 40px;
-}
 .card-body a {
   color: #212529;
   text-decoration: none;
