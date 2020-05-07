@@ -1,11 +1,12 @@
 <template>
   <div>
   <b-carousel
-    class=" shadow"
+    class="carousel-multi-item shadow"
     controls
     id="carousel-fade"
     style="text-shadow: 0px 0px 2px #000"
     slide
+
     indicators>
     <b-carousel-slide
       caption="Oferta 1"

@@ -2,73 +2,108 @@
 <b-container id="p" fluid="md">
   <b-row>
     <b-col md="6" sm="12">
-      <h3 class="mt-3">Categoria <b-button v-if="isAdmin()" variant="primary" class="pt-0" size="sm" @click="modalCategory = !modalCategory">crear</b-button></h3>
-      <b-form-select @change="getTags" v-model="selectedCategory" :options="categories">
+      <h3 class="mt-3">
+        Categoria
+        <b-button
+          v-if="isAdmin()"
+          variant="primary"
+          class="pt-0"
+          size="sm"
+          @click="modalCategory = !modalCategory">crear</b-button>
+      </h3>
+      <!-- categories -->
+      <b-form-select
+        @change="getTags"
+        v-model="selectedCategory"
+        :options="categories">
         <template v-slot:first>
-          <b-form-select-option :value="''">Que categoria?</b-form-select-option>
+          <b-form-select-option :value="''">Que buscas?</b-form-select-option>
         </template>
       </b-form-select>
 
-      <b-modal v-model="modalCategory" hide-footer>
-      <template v-slot:modal-title>
-        <h3 class="mt-3">Crear Categoria</h3>
-      </template>
-      <b-form @submit.prevent="addCategory" >
-        <!-- category -->
-        <b-form-group label="Nombre de la nueva Categoria" label-for="category">
-          <b-input required
-            @input="filterCategoryValue"
-            id="category"
-            v-model="category.text"
-            type="text"
-            class="mb-2 mr-sm-2 mb-sm-0"
-            placeholder='Nombre'
-          ></b-input>
-        </b-form-group>
-        <b-button type="submit" variant="primary">Agregar</b-button>
-      </b-form>
+      <b-modal
+        v-model="modalCategory"
+        hide-footer>
+        <template v-slot:modal-title>
+          <h3 class="mt-3">Crear Categoria</h3>
+        </template>
+        <b-form
+          @submit.prevent="addCategory">
+          <!-- new category -->
+          <b-form-group label="Nombre de la nueva Categoria" label-for="category">
+            <b-input required
+              @input="filterCategoryValue"
+              id="category"
+              v-model="category.text"
+              type="text"
+              class="mb-2 mr-sm-2 mb-sm-0"
+              placeholder='Nombre'
+            ></b-input>
+          </b-form-group>
+          <b-button type="submit" variant="primary">Agregar</b-button>
+        </b-form>
       </b-modal>
 
     </b-col>
-    <b-col md="6" sm="12">
-      <h3 class="mt-3">Marca <b-button v-if="isAdmin()" variant="primary" class="pt-0" size="sm" @click="modalTag = !modalTag">crear</b-button></h3>
+    <b-col md="6" sm="12" v-if="selectedCategory">
+
+      <h3 class="mt-3">
+        Marca
+        <b-button
+          v-if="isAdmin()"
+          variant="primary"
+          class="pt-0"
+          size="sm"
+          @click="modalTag = !modalTag">crear</b-button>
+      </h3>
       <div v-if="!selectedCategory">
         <b-alert variant="info" show>Seleccione una <b>Categoria</b></b-alert>
       </div>
-      <b-form-select v-else @change="getItems" v-model="selectedTag" :options="tags">
+      <!-- tags -->
+      <b-form-select
+        v-else
+        @change="getItems"
+        v-model="selectedTag"
+        :options="tags">
         <template v-slot:first>
           <b-form-select-option :value="''">{{!tags.length ? 'no hay marcas para '+selectedCategory : 'Que marca?'}}</b-form-select-option>
         </template>
       </b-form-select>
 
       <b-modal v-model="modalTag" hide-footer>
-      <template v-slot:modal-title>
-        <h3 class="mt-3">Crear Marca</h3>
-      </template>
-      <b-form @submit.prevent="addTag" >
-        <!-- tag -->
-        <b-form-group label="Nombre de la nueva Marca" label-for="tag">
-          <b-input required
-            @input="filterTagValue"
-            id="tag"
-            v-model="tag.text"
-            type="text"
-            class="mb-2 mr-sm-2 mb-sm-0"
-            placeholder='Nombre'
-          ></b-input>
-        </b-form-group>
-        <b-form-group label="Asociada a la Categoria" label-for="category">
-          <b-form-select @input='set_cid' v-model="tag.category" :options="categories"></b-form-select>
-        </b-form-group>
-        <b-button type="submit" variant="primary">Agregar</b-button>
-      </b-form>
+        <template v-slot:modal-title>
+          <h3 class="mt-3">Crear Marca</h3>
+        </template>
+        <b-form @submit.prevent="addTag">
+          <!-- new tag -->
+          <b-form-group label="Nombre de la nueva Marca" label-for="tag">
+            <b-input required
+              @input="filterTagValue"
+              id="tag"
+              v-model="tag.text"
+              type="text"
+              class="mb-2 mr-sm-2 mb-sm-0"
+              placeholder='Nombre'
+            ></b-input>
+          </b-form-group>
+          <b-form-group label="Asociada a la Categoria" label-for="category">
+            <b-form-select @input='set_cid' v-model="tag.category" :options="categories"></b-form-select>
+          </b-form-group>
+          <b-button type="submit" variant="primary">Agregar</b-button>
+        </b-form>
       </b-modal>
     </b-col>
   </b-row>
 
   <b-row>
-    <b-col md="12" sm="12">
-      <h3 class="mt-3">Inventario <CreateItem :categories="categories" /></h3>
+    <b-col md="12" sm="12" v-if="selectedTag">
+      <!-- new item -->
+      <h3 class="mt-3">
+        Inventario
+        <CreateItem
+          v-if="isAdmin()"
+          :categories="categories"/>
+      </h3>
       <div v-if="!selectedTag">
         <b-alert variant="info" show>Seleccione una <b>Marca</b></b-alert>
       </div>
@@ -122,8 +157,8 @@ export default {
   },
   firestore () {
     return {
-      user: this.$db.collection('users').where('uid', '==', this.$user ? this.$user.uid : ''),
-      categories: this.$db.collection('categories')
+      categories: this.$db.collection('categories'),
+      userDb: this.$user ? this.$db.collection('users').doc(this.$user.email) : []
     }
   },
   data () {
@@ -150,7 +185,10 @@ export default {
   },
   methods: {
     isAdmin () {
-      return this.user && this.user.length ? this.user[0].admin : null
+      return this.userDb ? this.userDb.admin : false
+    },
+    isLogin () {
+      return this.user
     },
     getTags (e) {
       this.selectedTag = ''
@@ -165,6 +203,7 @@ export default {
             tag['.key'] = doc.id // add .key
             this.tags = this.tags.concat(tag)
           })
+          if (this.selectedTag) this.getItems()
         }).catch(error => {
           alert('Error getting documents: ', error)
         })

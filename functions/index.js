@@ -11,7 +11,7 @@ mercadopago.configure({
 
 exports.welcome = functions.auth.user().onCreate( user => {
   console.log(user)
-  admin.firestore().collection('users').add({
+  admin.firestore().collection('users').doc(user.email).set({
     email: user.email,
     name: user.displayName,
     img: user.photoURL,
