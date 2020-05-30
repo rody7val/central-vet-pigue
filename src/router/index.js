@@ -2,11 +2,14 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import firebase from 'firebase'
 
-import Home from '@/components/Home'
-import ItemPublic from '@/components/ItemPublic'
-import Items from '@/components/Items'
-import Item from '@/components/Item'
-import Users from '@/components/Users'
+import Veterinaria from '@/components/Veterinaria'
+import Contact from '@/components/Contact'
+import My from '@/components/My'
+//import Home from '@/components/Home'
+//import ItemPublic from '@/components/ItemPublic'
+//import Items from '@/components/Items'
+//import Item from '@/components/Item'
+//import Users from '@/components/Users'
 
 Vue.use(Router)
 
@@ -14,6 +17,21 @@ const router = new Router({
   mode: 'history',
   routes: [
     {
+      path: '/',
+      name: 'home',
+      component: Veterinaria
+    },
+    {
+      path: '/contact',
+      name: 'contact',
+      component: Contact
+    },
+    {
+      path: '/my',
+      name: 'my',
+      component: My
+    },
+    /*{
       path: '/',
       name: 'home',
       component: Home
@@ -40,7 +58,7 @@ const router = new Router({
       meta: {
         requiresAuth: true
       }
-    }
+    }*/
   ]
 })
 

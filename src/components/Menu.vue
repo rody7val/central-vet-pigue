@@ -1,27 +1,34 @@
 <template>
-  <b-navbar toggleable="sm" type="dark" id="menu" class="shadow">
-    <b-container fluid="md">
-      <b-navbar-brand to="/">
-        <img src="@/assets/logo-central-vet.jpg" id="logo">
+  <b-navbar toggleable="md" type="dark" id="menu" class="shadow">
+
+      <b-navbar-brand v-b-toggle.sidebar-backdrop style="cursor: pointer" class="btn btn-vete">
+        <b-icon-text-left></b-icon-text-left>
+        <span>CentralVet</span>
       </b-navbar-brand>
 
-      <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+      <b-navbar-toggle class="btn-vete" target="nav-collapse"></b-navbar-toggle>
 
-      <b-collapse id="nav-collapse" is-nav style="background-color: transparent!important">
+      <b-collapse id="nav-collapse" class="svg-cat" is-nav>
 
-        <!-- Left -->
+        <!-- Left 
         <b-navbar-nav>
           <b-nav-item v-for='(link, i) in nav' style="background-color: transparent!important"
             :key="i + Date.now()"
             :to='link.to'>{{link.name}}</b-nav-item>
-        </b-navbar-nav>
+        </b-navbar-nav>-->
 
         <!-- Right -->
-        <b-navbar-nav class="ml-auto svg-cat">
-          <Auth/>
+        <b-navbar-nav class="ml-auto">
+          <!-- Cart -->
+          <div class="mt-2">
+            <b-button variant="info" class="menu-button-cart pb-2">
+              Carro <b>0</b>
+            </b-button>
+          </div>
+          <!-- Auth -->
+          <Auth class="mt-2"/>
         </b-navbar-nav>
       </b-collapse>
-    </b-container>
   </b-navbar>
 </template>
 
@@ -44,22 +51,42 @@ export default {
 </script>
 
 <style scoped>
-@media (max-width: 575px) {
-  /*.svg-cat{
+.btn-vete{
+  color: #fff!important;
+  text-decoration: none!important;
+  background-color: #7952b3;
+  border-color: #563d7c!important;
+}
+.btn-vete:focus,.btn-vete:active,.btn-vete:hover,.btn-vete:visited,.btn-vete:focus-within{
+  text-decoration: none!important;
+  background-color: #563d7c!important;
+  border-color: #7952b3!important;
+}
+.menu-button-cart{ 
+  margin-right: 7px
+}
+@media (max-width: 767px) {
+  .menu-button-cart {
+    margin-right: 0px
+  }
+  .svg-cat{
     background-image: url('https://image.flaticon.com/icons/svg/1089/1089472.svg');
     background-repeat: no-repeat;
-    background-size: 50px;
-    background-position: bottom left
-  }*/
+    background-size: 72px 100px;
+  }
 }
-
+.btn-vete{
+  border: 0px
+}
 #logo{
   width: 3rem;
   border-radius: 50%
 }
 #menu{
   background-color: rgb(52, 73, 94);
+  /*claro*/
   background-color: #7952b3;
+  /*oscuro*/
   background-color: #563d7c;
 }
 .box {

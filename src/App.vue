@@ -1,21 +1,26 @@
 <template>
-  <div id='app'>
+  <div id='app' class="wrapper">
+    <Sidebar/>
     <Menu/>
-    <!-- <Delivery msg="Envio gratis a todo Pigüé"/> -->
+    <b-container fluid>
+      <i>{{$route.path}}</i>
+    </b-container>
     <router-view/>
-    <Footer/>
+    <!-- <Footer/> -->
   </div>
 </template>
 
 <script>
 import Menu from '@/components/Menu'
-import Footer from '@/components/Footer'
+import Sidebar from '@/components/Sidebar'
+import Veterinaria from '@/components/Veterinaria'
 // import Delivery from '@/components/Delivery'
 
 export default {
   components: {
     Menu,
-    Footer
+    Sidebar,
+    Veterinaria
     // Delivery
   },
   name: 'App'
@@ -51,13 +56,15 @@ time, .time{
   object-fit: cover;
 }
 .btn-vete{
-  color: #fff;
-  background-color: #563d7c;
-  border-color: #7952b3;
+  color: #fff!important;
+  text-decoration: none!important;
+  background-color: #7952b3;
+  border-color: #563d7c!important;
 }
 .btn-vete:focus,.btn-vete:active,.btn-vete:hover,.btn-vete:visited,.btn-vete:focus-within{
-  background-color: #7952b3!important;
-  border-color: #563d7c!important;
+  text-decoration: none!important;
+  background-color: #563d7c!important;
+  border-color: #7952b3!important;
 }
 @media (max-width: 575px) {
   .display-3{
