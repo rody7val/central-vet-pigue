@@ -11,7 +11,7 @@
       <b-dropdown-item @click='signOut'>Salir</b-dropdown-item>
     </b-nav-item-dropdown>
 
-    <b-button variant='primary' v-if='!$user' @click='signIn'>
+    <b-button variant='primary' v-if='!$user' @click='signIn' class="flex pb-1">
       <b-icon-people-circle></b-icon-people-circle> <small>ACCEDER</small>
     </b-button>
   </div>

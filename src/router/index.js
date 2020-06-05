@@ -5,9 +5,10 @@ import firebase from 'firebase'
 import Veterinaria from '@/components/Veterinaria'
 import Contact from '@/components/Contact'
 import My from '@/components/My'
+import _Items from '@/components/_Items'
+//import Categories from '@/components/_Categories'
 //import Home from '@/components/Home'
 //import ItemPublic from '@/components/ItemPublic'
-//import Items from '@/components/Items'
 //import Item from '@/components/Item'
 //import Users from '@/components/Users'
 
@@ -24,13 +25,18 @@ const router = new Router({
     {
       path: '/contact',
       name: 'contact',
-      component: Contact
+      component: Contact,
     },
     {
       path: '/my',
       name: 'my',
       component: My
     },
+    {
+      path: '/items',
+      name: 'items',
+      component: _Items
+    }
     /*{
       path: '/',
       name: 'home',

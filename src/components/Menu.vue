@@ -3,32 +3,43 @@
 
       <b-navbar-brand v-b-toggle.sidebar-backdrop style="cursor: pointer" class="btn btn-vete">
         <b-icon-text-left></b-icon-text-left>
-        <span>CentralVet</span>
+        <span>Menu</span>
       </b-navbar-brand>
 
-      <b-navbar-toggle class="btn-vete" target="nav-collapse"></b-navbar-toggle>
-
-      <b-collapse id="nav-collapse" class="svg-cat" is-nav>
+        <!-- Right -->
+        <b-navbar-nav class="ml-auto">
+          <!-- Cart -->
+          <div class="mt-2">
+            <b-button v-b-modal.cart variant="info" class="flex menu-button-cart pb-1 mr-2">
+              <b-img src="https://firebasestorage.googleapis.com/v0/b/central-vet-pigue.appspot.com/o/cart.svg?alt=media&token=819c92e5-29ee-419e-9d89-d83af62805fc" width="19px" class="mr-2"></b-img>
+              <b id="cart_total">0</b>
+            </b-button>
+            <form>
+              <b-modal
+                id="cart"
+                title="Carro"
+                size="lg"
+                header-bg-variant="info"
+                header-text-variant="light">
+                <p class="my-4" id="cart_list">Vacio...</p>
+              </b-modal>
+            </form>
+          </div>
+          <!-- Auth -->
+          <Auth class="mt-2"/>
+        </b-navbar-nav>
 
         <!-- Left 
         <b-navbar-nav>
           <b-nav-item v-for='(link, i) in nav' style="background-color: transparent!important"
             :key="i + Date.now()"
             :to='link.to'>{{link.name}}</b-nav-item>
-        </b-navbar-nav>-->
-
-        <!-- Right -->
-        <b-navbar-nav class="ml-auto">
-          <!-- Cart -->
-          <div class="mt-2">
-            <b-button variant="info" class="menu-button-cart pb-2">
-              Carro <b>0</b>
-            </b-button>
-          </div>
-          <!-- Auth -->
-          <Auth class="mt-2"/>
         </b-navbar-nav>
-      </b-collapse>
+          <b-navbar-toggle class="btn-vete" target="nav-collapse"></b-navbar-toggle>
+          <b-collapse id="nav-collapse" class="svg-cat" is-nav>
+          </b-collapse>-->
+        
+
   </b-navbar>
 </template>
 
@@ -65,6 +76,7 @@ export default {
 .menu-button-cart{ 
   margin-right: 7px
 }
+
 @media (max-width: 767px) {
   .menu-button-cart {
     margin-right: 0px
@@ -72,7 +84,7 @@ export default {
   .svg-cat{
     background-image: url('https://image.flaticon.com/icons/svg/1089/1089472.svg');
     background-repeat: no-repeat;
-    background-size: 72px 100px;
+    background-size: 63px 104px;
   }
 }
 .btn-vete{

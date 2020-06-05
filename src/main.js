@@ -30,12 +30,11 @@ const db = firebase.initializeApp({
 
 Vue.use(db)
 
-Vue.prototype.$firebase = firebase
-Vue.prototype.$db = db
-Vue.prototype.$moment = moment
-
 window.onload = () => {
-  firebase.auth().onAuthStateChanged((user) => {
+  Vue.prototype.$firebase = firebase
+  Vue.prototype.$moment = moment
+  Vue.prototype.$db = db
+  firebase.auth().onAuthStateChanged(user => {
     Vue.prototype.$user = user
     new Vue({
       router,
