@@ -8,6 +8,7 @@
 </template>
 
 <script>
+import _ItemId from '@/components/_ItemId.vue'
 import Menu from '@/components/Menu'
 import Sidebar from '@/components/Sidebar'
 // import Delivery from '@/components/Delivery'
@@ -37,15 +38,25 @@ export default {
 
 <style>
 @import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
+@import 'https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:ital,wght@0,300;0,700;1,300';
 body{
+  font-family: "Poppins", sans-serif!important;
   transition: all 0.3s;
   background-color: #f7f7f7!important;
 }
-.shadow{
-  box-shadow: 0 0.25rem 0.25rem rgba(0,0,0,.25), inset 0 -1px 5px rgba(0,0,0,.25);
+.shop-text{
+  font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace!important;
+  text-transform: uppercase!important;
+}
+.shop-title{
+  font-family: 'Open Sans Condensed', sans-serif!important;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.flex{
+  display: flex!important;
 }
 .shadow-text {
-
   text-shadow: 1px 1px 2px rgba(0,0,0,.5);
 }
 .truncate {
@@ -73,6 +84,17 @@ time, .time{
   max-height: 250px;
   object-fit: cover;
 }
+.btn-cart{
+  color: #fff!important;
+  text-decoration: none!important;
+  background-color: #e83e8c;
+  border-color: #d74a8b!important;
+}
+.btn-cart:focus,.btn-cart:active,.btn-cart:hover,.btn-cart:visited,.btn-cart:focus-within{
+  text-decoration: none!important;
+  background-color: #d74a8b!important;
+  border-color: #d74a8b!important;
+}
 .btn-vete{
   color: #fff!important;
   text-decoration: none!important;
@@ -82,7 +104,7 @@ time, .time{
 .btn-vete:focus,.btn-vete:active,.btn-vete:hover,.btn-vete:visited,.btn-vete:focus-within{
   text-decoration: none!important;
   background-color: #563d7c!important;
-  border-color: #7952b3!important;
+  border-color: #563d7c!important;
 }
 ul.dropdown-menu{
   background-color: #007bff!important;
@@ -97,10 +119,17 @@ ul.dropdown-menu li a:hover{
   color: #333!important;
 }
 #sidebar-backdrop{
-  background-color: #563d7c!important
+  background-color: #343a40!important;
+}
+#menu ul.dropdown-menu{
+  position: absolute!important;
+  box-shadow: 0 0.25rem 0.25rem rgba(0,0,0,.25), inset 0 -1px 5px rgba(0,0,0,.25);
+}
+#cart .modal-header {
+  background-color: #e83e8c!important;
 }
 p{
-  font-family: 'Poppins', sans-serif;
+    font-family: 'Poppins', sans-serif;
     font-size: 1.1em;
     font-weight: 300;
     line-height: 1.7em;
@@ -138,6 +167,9 @@ p{
   }
 }
 @media (max-width: 575px) {
+  ._card-title{
+    font-size: 2rem!important
+  }
   .display-3{
     font-size: 3rem!important
   }

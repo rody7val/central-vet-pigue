@@ -1,16 +1,17 @@
 <template>
   <div>
-    <h1 class="my-5">Tienda</h1>
+    <h1 class="my-5 shop-title">Tienda</h1>
     <b-spinner small v-if="!categories.length"></b-spinner>
-    <b-card-group v-else columns>
-        <b-card class="card-category shadow" bg-variant="light"
+    <b-card-group v-else columns class="mb-5">
+        <b-card class="card-category bg-light shadow" bg-variant="light"
           v-for="(category, index) in categories" :key="index"
           @click="$router.push('/items?category='+category._id)"
-          :title="category.name"
           :img-src="category.img"
           :img-alt="category.name"
           img-top
-        ></b-card>
+        >
+        <code><h3 class="card-title shop-title">{{category.name}}</h3></code>
+        </b-card>
     </b-card-group>
   </div>
 </template>

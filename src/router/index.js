@@ -6,6 +6,7 @@ import Veterinaria from '@/components/Veterinaria'
 import Contact from '@/components/Contact'
 import My from '@/components/My'
 import _Items from '@/components/_Items'
+import _ItemId from '@/components/_ItemId.vue'
 //import Categories from '@/components/_Categories'
 //import Home from '@/components/Home'
 //import ItemPublic from '@/components/ItemPublic'
@@ -36,8 +37,13 @@ const router = new Router({
       path: '/items',
       name: 'items',
       component: _Items
-    }
-    /*{
+    },
+    {
+      path: '/items/:id',
+      name: 'itemsId',
+      component: _ItemId
+    }/*
+    {
       path: '/',
       name: 'home',
       component: Home

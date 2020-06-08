@@ -45,6 +45,7 @@ exports.createPreference = functions.https.onCall((data, context) => {
   }
 })
 
+
 // GET /api/categories
 exports.getAllCategories = functions.https.onCall((data, context) => {
   return axios.get("http://web-central-vet.herokuapp.com/api/categories").then(response => {
@@ -56,25 +57,38 @@ exports.getAllCategories = functions.https.onCall((data, context) => {
   }).catch(err => {return { success: false, err: err }})
 })
 
+// GET /api/items/:id
+exports.getItemId = functions.https.onCall((data, context) => {
+  return axios.get("http://web-central-vet.herokuapp.com/api/items/"+data._id).then(response => {
+    console.log(response.data.item)
+    return { 
+      success: response.data.success || false,
+      item: response.data.item || {}
+    }
+  }).catch(err => {return { success: false, err: err }})
+})
+
 // POST /api/items/search
 exports.getItemsSearch = functions.https.onCall((data, context) => {
+  console.log(data)
+  let item = {
+    category: "",
+    title: "",
+    tag: ""
+  }
   if (data.tag || data.category || data.title) {
-    let item = {
-      category: "",
-      title: "",
-      tag: ""
-    }
     if (data.category) item.category = data.category
     if (data.title) item.title = data.title
     if (data.tag) item.tag = data.tag
-    console.log(item)
-    return axios.post("http://web-central-vet.herokuapp.com/api/items/search", {item: item}).then(response => {
-      console.log(response.data)
-      return { 
-        success: response.data.success || false,
-        items: response.data.items || [],
-        filters: response.data.filters
-      }
-    }).catch(err => {return { success: false, err: err }})
-  } else {return { success: false }}
+  }
+  console.log(item)
+
+  return axios.post("http://web-central-vet.herokuapp.com/api/items/search", {item: item}).then(response => {
+    console.log(response.data)
+    return { 
+      success: response.data.success || false,
+      items: response.data.items || [],
+      filters: response.data.filters
+    }
+  }).catch(err => {return { success: false, err: err }})
 })
