@@ -1,10 +1,10 @@
 <template>
   <div>
     <h1 class="my-5 shop-title">Tienda</h1>
-    <b-spinner small v-if="!categories.length"></b-spinner>
+    <b-spinner small v-if="$store.state.categories.data.length" class="mb-5"></b-spinner>
     <b-card-group v-else columns class="mb-5">
         <b-card class="card-category bg-light shadow" bg-variant="light"
-          v-for="(category, index) in categories" :key="index"
+          v-for="(category, index) in $store.state.categories.data || []" :key="index"
           @click="$router.push('/items?category='+category._id)"
           :img-src="category.img"
           :img-alt="category.name"
@@ -19,20 +19,24 @@
 <script>
 export default {
   name: "categories",
-  data () {
-    return {
-      categories: []
-    }
-  },
-  created () {
-    let getAllCategories = this.$firebase.functions().httpsCallable("getAllCategories")
-    console.log("getAllCategories")
-    getAllCategories().then(result => {
-      if (!result.data.success) return console.log(result.data.err)
-      console.log(result.data.categories)
-      this.categories = result.data.categories
-    })
+  mounted () {
+    this.$store.dispatch("categories/openDBChannel");
   }
+  // data () {
+  //   return {
+  //     categories: []
+  //   }
+  // },
+  // created () {
+  //   this.$store.dispatch('categories/openDBChannel')
+    // let getAllCategories = this.$firebase.functions().httpsCallable("getAllCategories")
+    // console.log("getAllCategories")
+    // getAllCategories().then(result => {
+    //   if (!result.data.success) return console.log(result.data.err)
+    //   console.log(result.data.categories)
+    //   this.categories = result.data.categories
+    // })
+  // }
 }
 </script>
 

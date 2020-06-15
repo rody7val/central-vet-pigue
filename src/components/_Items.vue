@@ -11,7 +11,7 @@
         <b-form inline>
           <b-input-group prepend="Categoria" class="mb-2">
             <b-form-select
-              v-model="search_category"
+              v-model="$store.state.search_category"
               @change="_changeSearchCategory">
               <b-form-select-option :value="''">Todas</b-form-select-option>
               <b-form-select-option :key="index"
@@ -64,7 +64,6 @@ export default {
   },
   methods: {
     _changeSearchCategory (event) {
-      console.log(event)
       this.$router.push('/items?category='+event);  
       this._getItemsSearch()
     },

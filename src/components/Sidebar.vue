@@ -16,39 +16,22 @@
         </div>
         <div>
           <b-nav vertical pills>
+            <!-- admin -->
+              <button v-if="$user"
+                @click="$router.push('/admin?email='+$user.email)"
+                :class="'btn btn-block btn-vete text-left mt-0 ' + sidebarState('/admin*', 'active')">Dashboard</button>
             <!-- home -->
               <button
                 @click="$router.push('/')"
-                :class="'btn btn-block btn-vete text-left mt-0 ' + sidebarState('/', 'active')">Veterinaria</button>
+                :class="'btn btn-block btn-vete text-left mt-0 ' + sidebarState('^/$', 'active')">Veterinaria</button>
+            <!-- shop -->
+              <button
+                @click="$router.push('/items')"
+                :class="'btn btn-block btn-vete text-left mt-0 ' + sidebarState('/items*', 'active')">Tienda</button>
             <!-- contact -->
               <button
                 @click="$router.push('/contact')"
                 :class="'btn btn-block btn-vete text-left mt-0 ' + sidebarState('/contact', 'active')">Contacto</button>
-            <!-- navbar items filter category / cart  -->
-            <b-navbar
-              toggleable
-              :class="'btn-vete' + sidebarState('/items', 'active')"
-              type="dark">
-              <b-navbar-brand href="#">Tienda</b-navbar-brand>
-
-              <b-navbar-toggle target="navbar-toggle-collapse">
-                <template v-slot:default="{ expanded }">
-                  <b-icon v-if="expanded" icon="chevron-bar-up"></b-icon>
-                  <b-icon v-else icon="chevron-bar-down"></b-icon>
-                </template>
-              </b-navbar-toggle>
-
-              <b-collapse id="navbar-toggle-collapse" is-nav>
-                <b-navbar-nav class="ml-auto">
-                  <b-nav-item
-                    v-for="(category, index) in categories"
-                    @click="$router.push('/items?category='+category._id)">
-                    {{category.name}}
-                  </b-nav-item>
-                </b-navbar-nav>
-              </b-collapse>
-            </b-navbar>
-
           </b-nav>
         </div>
       </div>
@@ -57,17 +40,14 @@
 </template>
 
 <script>
-//:href="'/items?category='+category._id"
-// @click="$router.push('/items?category='+category._id)">
-  export default {
-    name: "sidebar",
-    props: ["categories"],
-    methods: {
-      sidebarState(path, className){
-        return this.$route.path == path ? className : ''
-      }
+export default {
+  name: "sidebar",
+  methods: {
+    sidebarState(path, className){
+      return (this.$route.path.match(new RegExp(path)) !== null) ? className : ''
     }
   }
+}
 </script>
 
 <style scoped>
@@ -77,7 +57,10 @@
   border-color: #7952b3!important;
 }
 nav.navbar a.navbar-brand, ul.nav button {
-  font-size: 22px
+  font-size: 22px;
+}
+nav.navbar a.navbar-brand, ul.nav button.btn-vete {
+  border-color: #7952b3!important;
 }
 .navbar-collapse ul li a {
   font-size: 20px
@@ -91,7 +74,7 @@ nav.navbar a.navbar-brand, ul.nav button {
 .btn-vete:focus,.btn-vete:active,.btn-vete:hover,.btn-vete:visited,.btn-vete:focus-within{
   text-decoration: none!important;
   background-color: #563d7c!important;
-  border-color: #7952b3!important;
+  border-color: #563d7c!important
 }
 @media (max-width: 575px) {
   .svg-cat{

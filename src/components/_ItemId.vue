@@ -15,33 +15,39 @@
             <div v-else class="_card-body">
               <h1 class="shop-title title mt-3">{{item.title}}</h1>
               <h1 class="shop-text price mt-3"><code>$ {{item.price}}</code></h1>
-              <!-- category select -->
+              <!-- qty select -->
                 <b-input-group prepend="Cantidad" class="mb-0">
                   <b-form-input
                     v-model="qty"
                     type="number"
-                    min="0"
+                    min="1"
                     :max="item.qty"
-                    @change="_changeSearchCategory" class="input-block">
+                    @change="_changeItemQty" class="input-block">
                   </b-form-input>
                 </b-input-group>
+                <!-- muted -->
                 <p class="text-muted text-right">
                   <small>
                     ({{(item.qty) + " disponible" + (item.qty > 1 ? "s" : "") }})
                   </small>
                 </p>
+                <!-- checkout -->
                 <form @submit.prevent="_checkout">
-                  <input class="btn btn-block btn-vete mb-2"
+                  <p v-if="load" class="mb-2 text-center">
+                    <b-spinner variant="secondary" small></b-spinner>
+                  </p>
+                  <input v-else class="btn btn-block btn-vete mb-2"
                     type="submit"
                     value="Comprar ahora"/>
                 </form>
+                <!-- add to cart -->
                 <form @submit.prevent="_addToCart">
                   <input class="btn btn-block btn-cart mb-2"
                     type="submit"
                     value="Agregar al carrito"/>
                 </form>
+                <!-- mp -->
                 <img src="http://web-central-vet.herokuapp.com/img/MP-payButton-logos.png" alt="mercadopago">
-
             </div>
           </b-col>
         </b-row>
@@ -57,16 +63,47 @@ export default {
     return {
       load: false,
       item: {},
-      qty: 0,
-
+      qty: 1
     }
   },
   methods: {
     _checkout () {
-      alert("_checkout")
+      this.load = true
+      let preference = {
+        items: [
+          {
+            id: this.item._id,
+            title: this.item.title,
+            unit_price: Number(this.item.price),
+            currency_id: 'ARS',
+            quantity: Number(this.qty),
+          }
+        ]
+      }
+      let createPreference = this.$firebase.functions().httpsCallable("createPreference")
+      createPreference(preference).then(result => {
+        if (!result.data.success) {
+         this.load = false
+         // this.item = {}
+         return console.log(result.data)
+        }
+        console.log(result.data.init_point)
+        window.location.replace(result.data.init_point)
+      })
     },
     _addToCart () {
-      alert("_addToCart")
+      this.$store.commit('addItemToCart', {
+        id: this.item._id,
+        title: this.item.title,
+        price: this.item.price,
+        total_price: this.item.price * this.qty,
+        count: this.qty,
+        max: this.item.qty
+      })
+      //this.$cart.addItemToCart(this.item.title, this.item.price, this.qty, this.item.qty)
+    },
+    _changeItemQty (e) {
+      this.qty = e
     },
     _getItemId () {
       this.load = true
@@ -77,7 +114,6 @@ export default {
          this.item = {}
          return console.log(result.data)
         }
-        console.log(result.data.item)
         this.item = result.data.item
         this.load = false
       })

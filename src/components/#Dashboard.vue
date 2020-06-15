@@ -1,12 +1,13 @@
 <template>
-  <b-container fluid>
-	<b>{{$user.email}}</b>
-  </b-container>
+  <div>
+  	<p>Dash</p>
+  </div>
 </template>
 
 <script>
+
 export default {
-  name: 'Contact'
+  name: 'cardUser'
 }
 </script>
 

@@ -7,13 +7,13 @@
         size="2rem"
         :src='$user.photoURL'></b-avatar>
       </template>
-      <b-dropdown-item to='/my'>Mi Cuenta</b-dropdown-item>
+      <b-dropdown-item to='/admin'>Dashboard</b-dropdown-item>
       <b-dropdown-item @click='signOut'>Salir</b-dropdown-item>
     </b-nav-item-dropdown>
 
-    <b-button v-if='!$user' @click='signIn' class="pb-1 btn-vete">
+    <button v-if='!$user' @click='signIn' class="btn btn-vete pb-1">
       <b-icon-people-circle></b-icon-people-circle> <small>ACCEDER</small>
-    </b-button>
+    </button>
   </div>
 </template>
 

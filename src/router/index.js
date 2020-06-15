@@ -2,11 +2,12 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import firebase from 'firebase'
 
-import Veterinaria from '@/components/Veterinaria'
-import Contact from '@/components/Contact'
-import My from '@/components/My'
-import _Items from '@/components/_Items'
-import _ItemId from '@/components/_ItemId.vue'
+import Veterinaria from '@/components/_Veterinaria'
+import Contact from '@/components/_Contact'
+// import My from '@/components/_My'
+import Items from '@/components/_Items'
+import ItemId from '@/components/_ItemId.vue'
+import Admin from '@/components/#Admin.vue'
 //import Categories from '@/components/_Categories'
 //import Home from '@/components/Home'
 //import ItemPublic from '@/components/ItemPublic'
@@ -29,20 +30,28 @@ const router = new Router({
       component: Contact,
     },
     {
-      path: '/my',
-      name: 'my',
-      component: My
-    },
-    {
       path: '/items',
       name: 'items',
-      component: _Items
+      component: Items
     },
     {
       path: '/items/:id',
       name: 'itemsId',
-      component: _ItemId
-    }/*
+      component: ItemId
+    },
+    {
+      path: '/admin',
+      name: 'admin',
+      component: Admin,
+      meta: { requiresAuth: true }
+    },/*
+    {
+      path: '/admin/my',
+      name: 'my',
+      component: My,
+      meta: { requiresAuth: true }
+    },
+    
     {
       path: '/',
       name: 'home',
@@ -62,15 +71,7 @@ const router = new Router({
       path: '/i/:key/:uid',
       name: 'item',
       component: Item
-    },
-    {
-      path: '/users',
-      name: 'users',
-      component: Users,
-      meta: {
-        requiresAuth: true
-      }
-    }*/
+    },*/
   ]
 })
 

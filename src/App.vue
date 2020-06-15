@@ -1,8 +1,8 @@
 <template>
   <div id='app' class="wrapper">
-    <Sidebar :categories="categories"/>
+    <Sidebar/>
     <Menu/>
-    <router-view />
+    <router-view style="margin-top: 60px" />
     <!-- <Footer/> -->
   </div>
 </template>
@@ -18,20 +18,6 @@ export default {
   components: {
     Menu,
     Sidebar
-  },
-  data () {
-    return {
-      categories: []
-    }
-  },
-  created () {
-    let getAllCategories = this.$firebase.functions().httpsCallable("getAllCategories")
-    console.log("getAllCategories")
-    getAllCategories().then(result => {
-      if (!result.data.success) return console.log(result.data.err)
-      console.log(result.data.categories)
-      this.categories = result.data.categories
-    })
   }
 }
 </script>
@@ -43,6 +29,9 @@ body{
   font-family: "Poppins", sans-serif!important;
   transition: all 0.3s;
   background-color: #f7f7f7!important;
+}
+#cart .modal-body{
+  padding: 0!important
 }
 .shop-text{
   font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace!important;
@@ -87,7 +76,7 @@ time, .time{
 .btn-cart{
   color: #fff!important;
   text-decoration: none!important;
-  background-color: #e83e8c;
+  background-color: #e83e8c!important;
   border-color: #d74a8b!important;
 }
 .btn-cart:focus,.btn-cart:active,.btn-cart:hover,.btn-cart:visited,.btn-cart:focus-within{
@@ -98,7 +87,7 @@ time, .time{
 .btn-vete{
   color: #fff!important;
   text-decoration: none!important;
-  background-color: #7952b3;
+  background-color: #7952b3!important;
   border-color: #563d7c!important;
 }
 .btn-vete:focus,.btn-vete:active,.btn-vete:hover,.btn-vete:visited,.btn-vete:focus-within{

@@ -1,6 +1,7 @@
 <template>
 <div>
   <b-jumbotron class="shadow" text-variant="dark" style="border-radius: 0px; padding: 0;">
+    <!-- home -->
     <b-container>
       <b-row>
         <b-col sm="8" class="order-2 order-sm-1 mb-5">
@@ -14,26 +15,34 @@
           <b-img id="logo-banner" fluid-grow src="https://centralvetpigue.com.ar/static/img/logo-central-vet.a27a323.jpg" class="my-5 my-sm-5 my-md-5 shadow"></b-img>
         </b-col>
       </b-row>
-
     </b-container>
   </b-jumbotron>
+  <!-- shop -->
   <b-container>
     <Categories/>
   </b-container>
+  <!-- contact -->
+  <Contact/>
 </div>
 </template>
 
 <script>
 import Categories from "@/components/_Categories"
+import Contact from "./_Contact"
 export default {
   name: "home",
   components: {
-    Categories
+    Categories,
+    Contact
   }
 }
 </script>
 
 <style scoped>
+.header-gradient-after {
+    background-image: linear-gradient(90deg,#ff8a00,#e52e71);
+    position: relative;
+}
 .title-home{  
   font-size: 3rem!important;
   color: #7952b3;
