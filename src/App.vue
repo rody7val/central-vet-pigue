@@ -25,9 +25,9 @@ export default {
 <style>
 @import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
 @import 'https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:ital,wght@0,300;0,700;1,300';
+*{transition: all 0.3s;}
 body{
   font-family: "Poppins", sans-serif!important;
-  transition: all 0.3s;
   background-color: #f7f7f7!important;
 }
 #cart .modal-body{

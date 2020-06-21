@@ -9,9 +9,10 @@ import { Firebase, initFirebase } from '../config/firebase.js'
 // import modules
 import Categories from './modules/categories.js'
 import Users from './modules/users.js'
+import Items from './modules/items.js'
 // do the magic 🧙🏻‍♂️
 const easyFirestore = VuexEasyFirestore(
-  [Categories, Users],
+  [Categories, Users, Items],
   {logging: true, FirebaseDependency: Firebase}
 )
 
@@ -24,7 +25,7 @@ const storeData = {
     cart: [],
     total: 0,
     // categories: [],
-    search_category: ""
+    search_category: ''
   },
   // actions: {
   //   getCategoriesFromApi (store) {
@@ -46,14 +47,19 @@ const storeData = {
     // setCategories (state, categories) {
     //   state.categories = categories
     // },
-
+    resetItems (state) {
+      state.items.data = {}
+    },
+    setSearchCategory (state, id) {
+      state.search_category = id
+    },
     // set item to cart
     addItemToCart (state, item) {
     	let pass = true
 
       state.cart.forEach((i, index) => {
         // if repeat...
-        if (i.title == item.title) {
+        if (i.name == item.name) {
           //set item count
           let countBuffer = Number(i.count) + Number(item.count)
           state.cart[index].count = countBuffer

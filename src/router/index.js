@@ -8,6 +8,7 @@ import Contact from '@/components/_Contact'
 import Items from '@/components/_Items'
 import ItemId from '@/components/_ItemId.vue'
 import Admin from '@/components/#Admin.vue'
+import _404 from '@/components/_404.vue'
 //import Categories from '@/components/_Categories'
 //import Home from '@/components/Home'
 //import ItemPublic from '@/components/ItemPublic'
@@ -36,7 +37,7 @@ const router = new Router({
     },
     {
       path: '/items/:id',
-      name: 'itemsId',
+      name: 'itemId',
       component: ItemId
     },
     {
@@ -44,6 +45,10 @@ const router = new Router({
       name: 'admin',
       component: Admin,
       meta: { requiresAuth: true }
+    },
+    {
+      path: '*',
+      redirect: '/'
     },/*
     {
       path: '/admin/my',

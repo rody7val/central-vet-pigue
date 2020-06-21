@@ -18,7 +18,7 @@
           <b-nav vertical pills>
             <!-- admin -->
               <button v-if="$user"
-                @click="$router.push('/admin?email='+$user.email)"
+                @click="$router.push('/admin')"
                 :class="'btn btn-block btn-vete text-left mt-0 ' + sidebarState('/admin*', 'active')">Dashboard</button>
             <!-- home -->
               <button

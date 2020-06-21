@@ -5,7 +5,7 @@
     <b-card-group v-else columns class="mb-5">
         <b-card class="card-category bg-light shadow" bg-variant="light"
           v-for="(category, index) in $store.state.categories.data || []" :key="index"
-          @click="$router.push('/items?category='+category._id)"
+          @click="setSearchCategory(category.name)"
           :img-src="category.img"
           :img-alt="category.name"
           img-top
@@ -21,6 +21,12 @@ export default {
   name: "categories",
   mounted () {
     this.$store.dispatch("categories/openDBChannel");
+  },
+  methods: {
+    setSearchCategory (name) {
+      this.$store.commit("setSearchCategory", name)
+      this.$router.push("/items")
+    }
   }
   // data () {
   //   return {

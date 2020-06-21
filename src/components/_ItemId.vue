@@ -1,47 +1,42 @@
 <template>
   <div>
-    <b-card bg-variant="light"
+    <b-card bg-variant="light" style="margin-top: -1px;"
       id="card-item-view"
-      :img-alt="item.title"
+      :img-alt="$store.state.items.data[$route.params.id].title"
       class="bg-light mb-3">
       <b-container fluid>
         <b-row>
           <b-col sm="6" md="7" class="col-img">
-            <b-spinner variant="secondary" small v-if="!item.img"></b-spinner>
-            <img :src="item.img" class="card-img card-img-top img-fluid" />
+            <img :src="$store.state.items.data[$route.params.id].img" class="card-img card-img-top img-fluid" />
           </b-col sm="6" md="5" >
           <b-col>
-            <b-spinner variant="secondary" small v-if="!item.img"></b-spinner>
-            <div v-else class="_card-body">
-              <h1 class="shop-title title mt-3">{{item.title}}</h1>
-              <h1 class="shop-text price mt-3"><code>$ {{item.price}}</code></h1>
+            <div class="_card-body">
+              <h1 class="shop-title title mt-3">{{$store.state.items.data[$route.params.id].name}}</h1>
+              <h1 class="shop-text price mt-3"><code>$ {{$store.state.items.data[$route.params.id].price}}</code></h1>
               <!-- qty select -->
                 <b-input-group prepend="Cantidad" class="mb-0">
                   <b-form-input
                     v-model="qty"
                     type="number"
                     min="1"
-                    :max="item.qty"
+                    :max="$store.state.items.data[$route.params.id].qty"
                     @change="_changeItemQty" class="input-block">
                   </b-form-input>
                 </b-input-group>
                 <!-- muted -->
                 <p class="text-muted text-right">
                   <small>
-                    ({{(item.qty) + " disponible" + (item.qty > 1 ? "s" : "") }})
+                    ({{($store.state.items.data[$route.params.id].qty) + " disponible" + ($store.state.items.data[$route.params.id].qty > 1 ? "s" : "") }})
                   </small>
                 </p>
                 <!-- checkout -->
-                <form @submit.prevent="_checkout">
-                  <p v-if="load" class="mb-2 text-center">
-                    <b-spinner variant="secondary" small></b-spinner>
-                  </p>
-                  <input v-else class="btn btn-block btn-vete mb-2"
+                <form @submit.prevent="checkout">
+                  <input class="btn btn-block btn-vete mb-2"
                     type="submit"
                     value="Comprar ahora"/>
                 </form>
                 <!-- add to cart -->
-                <form @submit.prevent="_addToCart">
+                <form @submit.prevent="addToCart">
                   <input class="btn btn-block btn-cart mb-2"
                     type="submit"
                     value="Agregar al carrito"/>
@@ -66,8 +61,12 @@ export default {
       qty: 1
     }
   },
+  mounted () {
+    this.$store.commit("resetItems")
+    this.$store.dispatch('items/fetchById', this.$route.params.id)
+  },
   methods: {
-    _checkout () {
+    checkout () {
       this.load = true
       let preference = {
         items: [
@@ -91,14 +90,15 @@ export default {
         window.location.replace(result.data.init_point)
       })
     },
-    _addToCart () {
+    addToCart () {
+      let item = this.$store.state.items.data[this.$route.params.id]
       this.$store.commit('addItemToCart', {
-        id: this.item._id,
-        title: this.item.title,
-        price: this.item.price,
-        total_price: this.item.price * this.qty,
-        count: this.qty,
-        max: this.item.qty
+        id: this.$route.params.id,
+        name: item.name,
+        price: Number(Number(item.price).toFixed(2)),
+        total_price: Number(Number(Number(item.price) * Number(this.qty)).toFixed(2)),
+        count: Number(this.qty),
+        max: Number(item.qty)
       })
       //this.$cart.addItemToCart(this.item.title, this.item.price, this.qty, this.item.qty)
     },

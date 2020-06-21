@@ -1,5 +1,5 @@
 <template>
-  <b-navbar toggleable="md" type="dark" id="menu" class="shadow" fixed="top">
+  <b-navbar toggleable="md" type="dark" id="menu" class="shadow nav-admin-items" fixed="top">
     <b-navbar-brand v-b-toggle.sidebar-backdrop style="cursor: pointer" class="btn btn-vete mr-0">
       <b-icon-text-left></b-icon-text-left>
       <span>Menu</span>
@@ -24,11 +24,21 @@ export default {
   components: {
     Auth,
     Cart
+  },
+  methods: {
+    menuState(path, className){
+      return (this.$route.path.match(new RegExp(path)) !== null) ? className : ''
+    }
   }
 }
 </script>
 
 <style scoped>
+.nav-admin-items{
+  left: -1px;
+  top: -1px;
+  right: -1px;
+}
 .btn-vete{
   color: #fff!important;
   text-decoration: none!important;

@@ -6,6 +6,7 @@
     </button>
     <form>
       <b-modal
+        centered
         id="cart"
         title="Carrito"
         size="lg"
@@ -22,7 +23,7 @@
           :fixed="true"
           head-variant="light">
           <!-- Producto -->
-          <template v-slot:cell(title)="data">
+          <template v-slot:cell(name)="data">
             <b>{{ data.value }}</b>
           </template>
           <!-- Cantidad -->
@@ -80,9 +81,9 @@ export default {
   data () {
     return {
       load: false,
-      fields: [  // id, title, price, count, max
+      fields: [  // id, name, price, count, max
         {
-          key: 'title',
+          key: 'name',
           label: 'Producto',
           sortable: true
         },
@@ -106,7 +107,7 @@ export default {
         items: this.$store.state.cart.map((item, index) => {
           let _item = {
             id: item.id,
-            title: item.title,
+            title: item.name,
             unit_price: Number(item.price),
             currency_id: 'ARS',
             quantity: Number(item.count),
