@@ -2,7 +2,7 @@
   <div>
     <b-card bg-variant="light" style="margin-top: -1px;"
       id="card-item-view"
-      :img-alt="$store.state.items.data[$route.params.id].title"
+      :img-alt="$store.state.items.data[$route.params.id].name"
       class="bg-light mb-3">
       <b-container fluid>
         <b-row>
@@ -11,36 +11,45 @@
           </b-col sm="6" md="5" >
           <b-col>
             <div class="_card-body">
+              <!-- title -->
               <h1 class="shop-title title mt-3">{{$store.state.items.data[$route.params.id].name}}</h1>
-              <h1 class="shop-text price mt-3"><code>$ {{$store.state.items.data[$route.params.id].price}}</code></h1>
-              <!-- qty select -->
-                <b-input-group prepend="Cantidad" class="mb-0">
-                  <b-form-input
-                    v-model="qty"
-                    type="number"
-                    min="1"
-                    :max="$store.state.items.data[$route.params.id].qty"
-                    @change="_changeItemQty" class="input-block">
-                  </b-form-input>
-                </b-input-group>
-                <!-- muted -->
-                <p class="text-muted text-right">
+              <!-- price -->
+              <h1 class="shop-text price mt-3"><code>$ {{Number($store.state.items.data[$route.params.id].price).toFixed(0)}}</code></h1>
+                <!-- stock muted -->
+                <!-- <p class="text-muted text-right">
                   <small>
                     ({{($store.state.items.data[$route.params.id].qty) + " disponible" + ($store.state.items.data[$route.params.id].qty > 1 ? "s" : "") }})
                   </small>
-                </p>
+                </p> -->
                 <!-- checkout -->
-                <form @submit.prevent="checkout">
-                  <input class="btn btn-block btn-vete mb-2"
-                    type="submit"
-                    value="Comprar ahora"/>
-                </form>
-                <!-- add to cart -->
-                <form @submit.prevent="addToCart">
-                  <input class="btn btn-block btn-cart mb-2"
-                    type="submit"
-                    value="Agregar al carrito"/>
-                </form>
+                <div class="text-center" v-if="load">
+                  <b-spinner label="Spinning"></b-spinner>
+                </div>
+                <div v-else>
+                  <!-- qty select -->
+                  <b-input-group prepend="Cantidad" class="mb-2">
+                      <!-- :max="$store.state.items.data[$route.params.id].qty" -->
+                    <b-form-input
+                      v-model="qty"
+                      type="number"
+                      min="1"
+                      @change="_changeItemQty" class="input-block">
+                    </b-form-input>
+                  </b-input-group>
+                  <!-- checkout -->
+                  <form @submit.prevent="checkout">
+                    <input class="btn btn-block btn-vete mb-2"
+                      type="submit"
+                      value="Comprar ahora"/>
+                  </form>
+                  <!-- add to cart -->
+                  <form @submit.prevent="addToCart">
+                    <input class="btn btn-block btn-cart mb-2"
+                      type="submit"
+                      value="Agregar al carrito"/>
+                  </form>
+                </div>
+
                 <!-- mp -->
                 <img src="http://web-central-vet.herokuapp.com/img/MP-payButton-logos.png" alt="mercadopago">
             </div>
@@ -67,13 +76,14 @@ export default {
   },
   methods: {
     checkout () {
+      let item = this.$store.state.items.data[this.$route.params.id]
       this.load = true
       let preference = {
         items: [
           {
-            id: this.item._id,
-            title: this.item.title,
-            unit_price: Number(this.item.price),
+            id: this.$route.params.id,
+            title: item.name,
+            unit_price: Number(Number(item.price).toFixed(2)),
             currency_id: 'ARS',
             quantity: Number(this.qty),
           }
@@ -96,7 +106,7 @@ export default {
         id: this.$route.params.id,
         name: item.name,
         price: Number(Number(item.price).toFixed(2)),
-        total_price: Number(Number(Number(item.price) * Number(this.qty)).toFixed(2)),
+        total_price: Number(Number(Number(item.price) * Number(this.qty)).toFixed(0)),
         count: Number(this.qty),
         max: Number(item.qty)
       })
@@ -105,23 +115,23 @@ export default {
     _changeItemQty (e) {
       this.qty = e
     },
-    _getItemId () {
-      this.load = true
-      let getItemId = this.$firebase.functions().httpsCallable("getItemId")
-      getItemId({_id: this.$route.params.id}).then(result => {
-        if (!result.data.success) {
-         this.load = false
-         this.item = {}
-         return console.log(result.data)
-        }
-        this.item = result.data.item
-        this.load = false
-      })
-    }
+    // _getItemId () {
+    //   this.load = true
+    //   let getItemId = this.$firebase.functions().httpsCallable("getItemId")
+    //   getItemId({_id: this.$route.params.id}).then(result => {
+    //     if (!result.data.success) {
+    //      this.load = false
+    //      this.item = {}
+    //      return console.log(result.data)
+    //     }
+    //     this.item = result.data.item
+    //     this.load = false
+    //   })
+    // }
   },
-  created () {
-    this._getItemId()
-  }
+  // created () {
+  //   this._getItemId()
+  // }
 }
 </script>
 

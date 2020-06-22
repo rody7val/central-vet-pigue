@@ -50,6 +50,9 @@ const storeData = {
     resetItems (state) {
       state.items.data = {}
     },
+    resetSearchCategories (state) {
+      state.search_category = ""
+    },
     setSearchCategory (state, id) {
       state.search_category = id
     },

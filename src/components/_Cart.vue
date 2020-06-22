@@ -14,6 +14,7 @@
         header-text-variant="light"
         :hide-footer="!$store.state.cart.length ? true : false">
         <p v-if="!$store.state.cart.length" class="m-4 " id="cart_list">Vacio...</p>
+        <!-- table -->
         <b-table v-else
           :busy="load"
           :fields="fields"
@@ -43,13 +44,13 @@
           </template>
           <!-- Precio -->
           <template v-slot:cell(total_price)="data">
-            <p class="lead">$ {{ data.value }}</p>
+            <p class="lead">$ {{ Number(data.value).toFixed(0) }}</p>
           </template>
           <!-- total -->
           <template v-slot:table-caption>
             <hr>
             <h1 class="text-right mr-2 pr-1 text-dark">
-              <small><b>Total  </b></small> <code> ${{$store.state.total}}</code></h1>
+              <small><b>Total  </b></small> <code> ${{Number($store.state.total).toFixed(0)}}</code></h1>
           </template>
           <!-- load -->
           <template v-slot:table-busy>
@@ -59,14 +60,17 @@
             </div>
           </template>
         </b-table>
-
-        <template v-if="$store.state.cart.length" v-slot:modal-footer>
-          <button @click="_delete" class="btn btn-danger mb-3">Borrar carro</button>
-          <form form-inline @submit.prevent="_checkout">
-            <input class="btn btn-block btn-vete mb-2"
-              type="submit"
-              value="Comprar ahora"/>
-          </form>
+        <!-- footer -->
+        <template v-slot:modal-footer>
+          <b-spinner v-if="load" label="Spinning"></b-spinner>
+          <div v-else>
+            <button @click="_delete" class="btn btn-danger mb-3">Borrar carro</button>
+            <form form-inline @submit.prevent="_checkout">
+              <input class="btn btn-block btn-vete mb-2"
+                type="submit"
+                value="Comprar ahora"/>
+            </form>
+          </div>
         </template>
 
       </b-modal>

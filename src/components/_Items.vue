@@ -41,11 +41,11 @@
               ">
               <b-card-text>
                 <h3 class="item-list-title shop-title">{{item.name}}</h3>
-                <h3 class="shop-text mt-3"><code>$ {{item.price}}</code></h3>
+                <h3 class="shop-text mt-3"><code>$ {{Number(item.price).toFixed(0)}}</code></h3>
               </b-card-text>
             </b-card>
         </b-card-group>
-        <div v-else>sin resultados...</div>
+        <div v-else>Sin resultados...</div>
       </b-col>
     </b-row>
     </b-container>      
@@ -59,35 +59,22 @@ export default {
   components: {
     ItemId
   },
-  created () {
-    // this.search_category = this.$route.query && this.$route.query.category ? this.$route.query.category : ""
-    //this._getAllCategories()
-    //this.getItemsSearch()
+  beforeDestroy () {
+    this.$store.dispatch('items/closeDBChannel', { clearModule: true })
+    this.$store.dispatch('categories/closeDBChannel', { clearModule: true })
+  },
+  mounted () {
     this.getCategories()
     this.getItemsSearch()
   },
   methods: {
-    getCategories () { this.$store.dispatch('categories/openDBChannel') },
     changeSearchCategory (event) {
       this.$store.commit("setSearchCategory", event || "")
-      //this.$router.push('/items?category='+event);
       this.getItemsSearch()
     },
-    // _getAllCategories () {
-    //   this.load_categories = true
-    //   let getAllCategories = this.$firebase.functions().httpsCallable("getAllCategories")
-    //   console.log("getAllCategories")
-    //   getAllCategories().then(result => {
-    //     if (!result.data.success) {
-    //       this.load_categories = false
-    //       this.categories = []
-    //       return console.log(result.data)
-    //     }
-    //     console.log(result.data.categories)
-    //     this.categories = result.data.categories
-    //     this.load_categories = false
-    //   })
-    // },
+    getCategories () {
+      this.$store.dispatch('categories/openDBChannel')
+    },
     getItemsSearch () {
       console.log(this.$store.state.search_category)
       this.$store.commit("resetItems")
@@ -101,24 +88,6 @@ export default {
       this.$store.dispatch('items/openDBChannel', {
         clauses: { where, orderBy }
       })
-
-      // this.load_items = true
-      // let getItemsSearch = this.$firebase.functions().httpsCallable("getItemsSearch")
-      // let params = {}
-      // if (this.$route.query.category) params.category = this.$route.query.category
-      // if (this.$route.query.tag) params.tag = this.$route.query.tag
-      // if (this.$route.query.title) params.title = this.$route.query.title
-      // console.log("getItemsSearch")
-      // getItemsSearch(params).then(result => {
-      //   if (!result.data.success) {
-      //    this.load_items = false
-      //    this.items = []
-      //    return console.log(result.data)
-      //   }
-      //   console.log(result.data.items)
-      //   this.items = result.data.items
-      //   this.load_items = false
-      // })
     },
   }
 }

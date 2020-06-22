@@ -63,9 +63,9 @@ a.nav-link {
   color: #fff!important
 }
 a.nav-link:hover {
-  color: #FFEB3B!important;
+  color: #007Bff!important;
 }
 .active > a, .active, .navbar-brand:hover {
-  color: #FFEB3B!important;
+  color: #007Bff!important;
 }
 </style>

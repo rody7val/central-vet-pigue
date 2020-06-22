@@ -1,6 +1,5 @@
 <template>
   <div>
-    <em>Mi usuario</em>
     <b-card
       :class="left ? 'userCardLeft ' : ' userCard '"
       img-topbg-variant="dark"
@@ -90,6 +89,11 @@ export default {
 </script>
 
 <style scoped>
+.card-img {
+    max-height: 250px;
+    -o-object-fit: cover;
+    object-fit: cover;
+}
 .userCard {
 /*  max-width: 260px;
   margin: 0 auto;*/
