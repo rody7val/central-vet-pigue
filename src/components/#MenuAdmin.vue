@@ -5,7 +5,7 @@
       variant="primary"
       type="dark"
       fixed="top"
-      style="margin-top: 58px; z-index: 1; background-color: #7952b3 !important;">
+      style="margin-top: 58px; z-index: 2; background-color: #7952b3 !important;">
       <b-navbar-brand
         :class="' '+ sidebarState('^/admin$' ,'active')"
         style="cursor: pointer"

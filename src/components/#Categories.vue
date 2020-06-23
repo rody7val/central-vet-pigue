@@ -2,14 +2,15 @@
   <b-row>
     <b-col md="6">
       <h4 class="my-3">Categorías</h4>
-        <!-- table -->
-        <b-card class="table-category">
+      <!-- table -->
+      <b-card class="table-category">
         <b-table
           :fields="fields"
           :items="Object.keys($store.state.categories.data).map(key => $store.state.categories.data[key])"
           :striped="false"
           :borderless="true"
-          :fixed="true"
+          :fixed="false"
+          :hover="true"
           head-variant="light">
           <!-- Nombre -->
           <template v-slot:cell(name)="data">
@@ -25,15 +26,9 @@
               variant="danger">delete</b-badge>
           </template>
         </b-table>
-        </b-card>
-        
-
-      <!-- list categories -->
-<!--       <ul>
-        <li v-for="category in $store.state.categories.data">{{category.name}}</li>
-      </ul> -->
+      </b-card>
     </b-col>
-    <b-col md="6">
+    <b-col md="6" class="bd-sidebar">
       <h4 class="my-3">Crear</h4>
       <b-card>
           <b-button v-if="!create"
@@ -157,4 +152,12 @@ export default {
   display: block;
   width: 100%;
 }
+/*.bd-sidebar{
+		background-color: #f7f7f7;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 120px;
+    z-index: 1000;
+    height: calc(100vh - 120px);
+}*/
 </style>
