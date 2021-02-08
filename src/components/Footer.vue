@@ -1,9 +1,9 @@
 <template>
   <div>
-    <b-jumbotron bg-variant="light" text-variant="black" class="mb-0" fluid>
+    <b-jumbotron bg-variant="light" text-variant="black" class="mb-0">
       <template v-slot:header></template>
       <template v-slot:lead></template>
-      <b-container class="footer">
+      <b-container class="footer" fluid>
         <b-row>
           <b-col sm="8">
             <h3>Contacto</h3>

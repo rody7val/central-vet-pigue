@@ -11,6 +11,7 @@
         Bienvenido a bordo!<br>
         Gracias por unirte. <br>
         Estamos trabajando para expandir el sitio. <br>
+        <b-img fluid-grow src="https://centralvetpigue.com.ar/static/img/logo-central-vet.a27a323.jpg" class="img my-5 my-sm-5 my-md-5 shadow"></b-img>
       </b-col>
     </b-row>
     <!-- if user admin -->
@@ -40,18 +41,20 @@
         </b-list-group>
       </b-col>
       
-      <b-col sm="6">
-
-      </b-col>
+    <b-col sm="6" md="4">
+      <h4 class="my-2">Mi Perfil</h4>
+      <CardUser :left="false" :user="$store.state.users.data[$user.email]"/>
+    </b-col>
     </b-row>
     </div>
   </div>
 </template>
 
 <script>
-
+import CardUser from "./#CardUser"
 export default {
   name: 'dashboard',
+  components: {CardUser},
   mounted () {
     this.$store.commit('resetSearchCategories')
     this.$store.commit('resetItems')
@@ -77,4 +80,8 @@ export default {
 </script>
 
 <style scoped>
+.img{
+  border-radius: 50%;
+  max-width: 270px!important;
+}
 </style>

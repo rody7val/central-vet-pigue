@@ -18,9 +18,9 @@
               @dismissed="show=false"
               fade>
               <p>Agregado!</p>
-              <h5><b>Total carro: </b>
-                <code class="mt-0" style="display: flex; float: right">
-                  ${{$store.state.total}}
+              <h5>Total carro: 
+                <code class="mt-0" style="display: flex; float: right; font-size: 1.3rem">
+                  ${{Number($store.state.total).toFixed(0)}}
                 </code>
               </h5>
             </b-alert>
@@ -64,6 +64,7 @@
                       type="submit"
                       value="Agregar al carrito"/>
                   </form>
+                  <b-link style="display: block" class="text-center" @click="$router.push('/items')">Seguir comprando</b-link>
                 </div>
             </div>
           </b-col>

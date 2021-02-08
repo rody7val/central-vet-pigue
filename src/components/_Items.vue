@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-container fluid>
+    <b-container>
     <b-row>
       <b-col sm="12" md="4" lg="3" class="bd-sidebar">
         <!-- header shop -->

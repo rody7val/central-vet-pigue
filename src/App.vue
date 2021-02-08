@@ -4,6 +4,10 @@
     <Menu/>
     <router-view style="margin-top: 60px" />
     <!-- <Footer/> -->
+    <small class="pie">
+      © 2021 Central Vet, Pigüé.<br>
+      Made with <span style="color: #e91e63">❤</span>
+    </small>
   </div>
 </template>
 
@@ -29,6 +33,13 @@ export default {
 body{
   font-family: "Poppins", sans-serif!important;
   background-color: #f7f7f7!important;
+}
+.pie{
+  text-align: center;
+  display: block;
+  padding: 30px;
+    background-color: #444;
+    color: #ddd;
 }
 #cart .modal-body{
   padding: 0!important

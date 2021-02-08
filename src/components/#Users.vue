@@ -7,7 +7,7 @@
         <li v-for="user in $store.state.users.data" :key="user.email">{{user.name}}</li>
       </ul>
     </b-col>
-    <b-col md="6">
+    <b-col sm="6" md="4">
       <h4 class="my-2">Mi Perfil</h4>
       <CardUser :left="false" :user="$store.state.users.data[$user.email]"/>
     </b-col>
