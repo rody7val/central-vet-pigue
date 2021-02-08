@@ -65,7 +65,7 @@
             <small>{{ user.active ? "bannearse" : "activarse" }}</small>
           </b-form-checkbox>
         </form>
-      </template>-->
+      </template>
 
     </b-card>
   </div>

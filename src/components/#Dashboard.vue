@@ -7,10 +7,10 @@
     <!-- if user client -->
     <b-row v-if="!$store.state.users.data[$user.email].admin">
       <b-col sm="6">
-        Panel de usuario...
-      </b-col>
-      <b-col sm="6">
-        Data...
+        <br>
+        Bienvenido a bordo!<br>
+        Gracias por unirte. <br>
+        Estamos trabajando para expandir el sitio. <br>
       </b-col>
     </b-row>
     <!-- if user admin -->

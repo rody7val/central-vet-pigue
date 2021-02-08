@@ -29,14 +29,14 @@
             @click="$router.push('/admin/users')">Usuarios</b-nav-item>
         </b-navbar-nav>
         <b-navbar-nav v-else>
-          <!-- Pedidos -->
+          <!-- Pedidos
           <b-nav-item disabled
             :class="' ' + sidebarState('/admin/tag*','active')"
             href="#">Pedidos</b-nav-item>
-          <!-- Facturación -->
+          Facturación
           <b-nav-item disabled
             :class="' ' + sidebarState('/admin/tag*','active')"
-            href="#">Facturación</b-nav-item>
+            href="#">Facturación</b-nav-item>-->
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>
