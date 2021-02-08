@@ -10,6 +10,20 @@
             <img :src="$store.state.items.data[$route.params.id].img" class="card-img card-img-top img-fluid" />
           </b-col sm="6" md="5" >
           <b-col>
+            <!-- alert info -->
+            <b-alert
+              :variant="alert_variant"
+              :show="show"
+              dismissible
+              @dismissed="show=false"
+              fade>
+              <p>Agregado!</p>
+              <h5><b>Total carro: </b>
+                <code class="mt-0" style="display: flex; float: right">
+                  ${{$store.state.total}}
+                </code>
+              </h5>
+            </b-alert>
             <div class="_card-body">
               <!-- title -->
               <h1 class="shop-title title mt-3">{{$store.state.items.data[$route.params.id].name}}</h1>
@@ -36,6 +50,8 @@
                       @change="_changeItemQty" class="input-block">
                     </b-form-input>
                   </b-input-group>
+                  <!-- mp -->
+                  <img src="https://firebasestorage.googleapis.com/v0/b/central-vet-pigue.appspot.com/o/MP-payButton-logos.png?alt=media&token=ee6aad3f-847d-4ad9-8c6e-36dfe00abd56">
                   <!-- checkout -->
                   <form @submit.prevent="checkout">
                     <input class="btn btn-block btn-vete mb-2"
@@ -49,9 +65,6 @@
                       value="Agregar al carrito"/>
                   </form>
                 </div>
-
-                <!-- mp -->
-                <img src="http://web-central-vet.herokuapp.com/img/MP-payButton-logos.png" alt="mercadopago">
             </div>
           </b-col>
         </b-row>
@@ -67,7 +80,11 @@ export default {
     return {
       load: false,
       item: {},
-      qty: 1
+      qty: 1,
+      show: false,
+      alert_item: "",
+      alert_variant: "",
+      alert_qty: ""
     }
   },
   mounted () {
@@ -110,24 +127,15 @@ export default {
         count: Number(this.qty),
         max: Number(item.qty)
       })
+      this.show = true
+      this.alert_item = item.name
+      this.alert_variant = "success"
+      this.alert_qty = item.count
       //this.$cart.addItemToCart(this.item.title, this.item.price, this.qty, this.item.qty)
     },
     _changeItemQty (e) {
       this.qty = e
     },
-    // _getItemId () {
-    //   this.load = true
-    //   let getItemId = this.$firebase.functions().httpsCallable("getItemId")
-    //   getItemId({_id: this.$route.params.id}).then(result => {
-    //     if (!result.data.success) {
-    //      this.load = false
-    //      this.item = {}
-    //      return console.log(result.data)
-    //     }
-    //     this.item = result.data.item
-    //     this.load = false
-    //   })
-    // }
   },
   // created () {
   //   this._getItemId()
@@ -147,7 +155,7 @@ export default {
   border-radius: 0;
 }
 .col-img{
-  background-color: #352450 !important;
+  background-color: #f3f3f3 !important;
   border: 0;
   min-height: 226px
 }

@@ -19,21 +19,21 @@
         <b-list-group class="my-3">
           <b-list-group-item class="d-flex justify-content-between align-items-center">
             <b-link @click="$router.push('/admin/categories')">Categorias</b-link>
-            <b-badge variant="primary" pill>
+            <b-badge style="background-color: #e83e8c" pill>
               {{Object.keys($store.state.categories.data).length}}
             </b-badge>
           </b-list-group-item>
 
           <b-list-group-item class="d-flex justify-content-between align-items-center">
             <b-link @click="$router.push('/admin/items')">Productos</b-link>
-            <b-badge variant="primary" pill>
+            <b-badge style="background-color: #e83e8c" pill>
               {{Object.keys($store.state.items.data).length}}
             </b-badge>
           </b-list-group-item>
 
           <b-list-group-item class="d-flex justify-content-between align-items-center">
             <b-link @click="$router.push('/admin/users')">Usuarios</b-link>
-            <b-badge variant="primary" pill>
+            <b-badge style="background-color: #e83e8c" pill>
               {{Object.keys($store.state.users.data).length}}
             </b-badge>
           </b-list-group-item>

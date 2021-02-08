@@ -96,16 +96,16 @@ time, .time{
   border-color: #563d7c!important;
 }
 ul.dropdown-menu{
-  background-color: #007bff!important;
+  background-color: #e83e8c!important;
 }
 ul.dropdown-menu li a{
-  background-color: #007bff!important;
-  color: #fff!important;
+  background-color: #fff!important;
+  color: #333!important;
   font-size: 22px
 }
 ul.dropdown-menu li a:hover{
-  background-color: #fff!important;
-  color: #333!important;
+  background-color: #e83e8c!important;
+  color: #fff!important;
 }
 #sidebar-backdrop{
   background-color: #343a40!important;

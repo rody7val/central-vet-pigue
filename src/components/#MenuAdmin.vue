@@ -5,7 +5,7 @@
       variant="primary"
       type="dark"
       fixed="top"
-      style="margin-top: 58px; z-index: 2; background-color: #7952b3 !important;">
+      style="margin-top: 58px; z-index: 2; background-color: #e83e8c !important;">
       <b-navbar-brand
         :class="' '+ sidebarState('^/admin$' ,'active')"
         style="cursor: pointer"
@@ -19,10 +19,6 @@
           <b-nav-item
             :class="' ' + sidebarState('/admin/categories' ,'active')"
             @click="$router.push('/admin/categories')">Categorias</b-nav-item>
-           <!-- Marcas -->
-          <b-nav-item disabled
-            :class="' ' + sidebarState('/admin/tags*','active')"
-            href="#">Marcas</b-nav-item>
           <!-- Productos -->
           <b-nav-item
             :class="' ' + sidebarState('/admin/items*','active')"
@@ -63,9 +59,10 @@ a.nav-link {
   color: #fff!important
 }
 a.nav-link:hover {
-  color: #007Bff!important;
+  color: #563d7c!important;
 }
 .active > a, .active, .navbar-brand:hover {
-  color: #007Bff!important;
+  color: #563d7c!important;
 }
+
 </style>
