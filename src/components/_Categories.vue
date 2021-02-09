@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 class="my-5 shop-title">Tienda</h1>
+    <h1 class="my-5 shop-title">Ofertas Online</h1>
     <b-spinner small v-if="$store.state.categories.data.length" class="mb-5"></b-spinner>
     <b-card-group v-else columns class="mb-5">
         <b-card class="card-category bg-light shadow" bg-variant="light"

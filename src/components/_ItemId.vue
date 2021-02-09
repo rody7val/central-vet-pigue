@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-card bg-variant="light" style="margin-top: -1px;"
+    <b-card bg-variant="light" style="margin-top: -1px; margin-bottom: 0px!important;"
       id="card-item-view"
       :img-alt="$store.state.items.data[$route.params.id].name"
       class="bg-light mb-3">
@@ -12,7 +12,7 @@
           <b-col>
             <!-- alert info -->
             <b-alert
-              :variant="alert_variant"
+              :class="clase"
               :show="show"
               dismissible
               @dismissed="show=false"
@@ -84,7 +84,7 @@ export default {
       qty: 1,
       show: false,
       alert_item: "",
-      alert_variant: "",
+      clase: "",
       alert_qty: ""
     }
   },
@@ -130,7 +130,7 @@ export default {
       })
       this.show = true
       this.alert_item = item.name
-      this.alert_variant = "success"
+      this.clase = "alert-central-vet"
       this.alert_qty = item.count
       //this.$cart.addItemToCart(this.item.title, this.item.price, this.qty, this.item.qty)
     },

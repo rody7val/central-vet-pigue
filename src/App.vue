@@ -158,6 +158,12 @@ p{
   background-position: 10px 30px;
 }
 
+.alert-central-vet {
+    color: #261557;
+    background-color: #dbd4ed;
+    border-color: #dbd4ed;
+}
+
 @media (max-width: 767px) {
   #menu .navbar-nav.ml-auto {
       -ms-flex-direction: row;
