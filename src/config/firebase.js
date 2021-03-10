@@ -4,14 +4,14 @@ import 'firebase/firestore'
 
 function initFirebase () {
   Firebase.initializeApp({
-    apiKey: '',
-    authDomain: '',
-    databaseURL: '',
-    projectId: '',
-    storageBucket: '',
-    messagingSenderId: '',
-    appId: '',
-    measurementId: ''
+    apiKey: "",
+    authDomain: "",
+    databaseURL: "",
+    projectId: "",
+    storageBucket: "",
+    messagingSenderId: "",
+    appId: "",
+    measurementId: ""
   })
   return new Promise((resolve, reject) => {
     Firebase.firestore().enablePersistence()

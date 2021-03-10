@@ -1,7 +1,7 @@
 <template>
   <div>
     <b-card
-      :class="left ? 'userCardLeft ' : ' userCard '"
+      :class="(left ? 'userCardLeft ' : ' userCard ') + 'my-3'"
       img-topbg-variant="dark"
       :img-left="left ? true : false"
       :img-src="user.img"
@@ -22,7 +22,7 @@
       <div v-else class="text-left">
         <b-badge pill variant="danger">baneado</b-badge>
       </div>
-      <div v-if="$store.state.users.data[$user.email].admin && left">
+      <div style="display: none" v-if="$store.state.users.data[$user.email].admin && left">
         <hr>
         <em>Acciones:</em>
         <form class="lead mb-0">
@@ -44,8 +44,8 @@
           </b-form-checkbox>
         </form>
       </div>
-      <!-- actions -->
-      <template v-slot:footer v-if="$store.state.users.data[$user.email].admin && !left">
+      <!-- actions 
+      <template style="display: none" v-slot:footer v-if="$store.state.users.data[$user.email].admin && !left">
         <em>Acciones:</em>
         <form class="lead mb-0">
           <b-form-checkbox switch v-if="$store.state.users.data[$user.email].admin"
@@ -65,7 +65,7 @@
             <small>{{ user.active ? "bannearse" : "activarse" }}</small>
           </b-form-checkbox>
         </form>
-      </template>
+      </template>-->
 
     </b-card>
   </div>

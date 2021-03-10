@@ -4,7 +4,7 @@
     <b-row>
       <b-col sm="12" md="4" lg="3" class="bd-sidebar">
         <!-- header shop -->
-        <h2 class="shop-title pt-2" style="text-transform: uppercase;">tienda</h2>
+        <h2 class="shop-title pt-2" style="text-transform: uppercase;">Ofertas Online</h2>
         <!-- category select -->
         <b-form inline>
           <b-input-group prepend="Categoria" class="mb-2">

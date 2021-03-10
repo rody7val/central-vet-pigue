@@ -1,6 +1,50 @@
 <template>
   <b-row>
-    <b-col md="6">
+    <b-col md="12" >
+      <h4 class="my-3">Crear</h4>
+      <b-card>
+        <b-button
+          v-if="!create"
+          @click="create=true"
+          size="sm"
+          variant="primary">Nueva categoría</b-button>
+        <!-- create category -->
+        <b-form
+          v-else
+          @submit.prevent="createCategory"
+        >
+          <!-- img -->
+          <label>Imagen:</label>
+          <small v-if="uploadValue">{{this.uploadValue}}</small>
+          <b-img v-if="category.img" class="mb-3 img-form" :src="category.img"></b-img>
+          <b-img v-else src="https://www.donbalon.com/images/venue_default.png" width="100"></b-img>
+          <b-form-file class="mb-3"
+            @change="onChangeImage"
+            v-model="file"
+            :state="Boolean(file)"
+            placeholder="Selecciona o arrastra un imagen aquí..."
+            drop-placeholder="Sueltala aquí!"
+          ></b-form-file>
+          <!-- name -->
+          <b-form-group id="name-label" label="Nombre:" label-for="name">
+            <b-form-input
+              id="name"
+              v-model="category.name"
+              type="text"
+              required
+            ></b-form-input>
+          </b-form-group>
+          <!-- actions -->
+          <b-button
+            type="submit"
+            size="sm"
+            variant="primary">Guardar</b-button>
+          <b-button
+            @click="create=false"
+            size="sm"
+            variant="secondary">Cancelar</b-button>
+        </b-form>
+      </b-card>
       <h4 class="my-3">Categorías</h4>
       <!-- table -->
       <b-card class="table-category">
@@ -23,51 +67,9 @@
           <template v-slot:cell(id)="data">
             <b-badge style="cursor: pointer"
               @click="_delete(data.value)"
-              variant="danger">delete</b-badge>
+              variant="danger">Borrar</b-badge>
           </template>
         </b-table>
-      </b-card>
-    </b-col>
-    <b-col md="6" class="bd-sidebar">
-      <h4 class="my-3">Crear</h4>
-      <b-card>
-          <b-button v-if="!create"
-            @click="create=true"
-            size="sm"
-            variant="primary">Nueva categoría</b-button>
-          <!-- create category -->
-          <b-form v-else @submit.prevent="createCategory">
-            <!-- img -->
-            <label>Imagen:</label>
-            <small v-if="uploadValue">{{this.uploadValue}}</small>
-            <b-img v-if="category.img" class="mb-3 img-form" :src="category.img"></b-img>
-            <b-img v-else src="https://www.donbalon.com/images/venue_default.png" width="100"></b-img>
-            <b-form-file class="mb-3"
-              @change="onChangeImage"
-              v-model="file"
-              :state="Boolean(file)"
-              placeholder="Selecciona o arrastra un imagen aquí..."
-              drop-placeholder="Sueltala aquí!"
-            ></b-form-file>
-            <!-- name -->
-            <b-form-group id="name-label" label="Nombre:" label-for="name">
-              <b-form-input
-                id="name"
-                v-model="category.name"
-                type="text"
-                required
-              ></b-form-input>
-            </b-form-group>
-            <!-- actions -->
-            <b-button
-              type="submit"
-              size="sm"
-              variant="primary">Guardar</b-button>
-            <b-button
-              @click="create=false"
-              size="sm"
-              variant="secondary">Cancelar</b-button>
-          </b-form>
       </b-card>
     </b-col>
   </b-row>
@@ -87,13 +89,13 @@ export default {
       },
       fields: [  // id, name, price, count, max
         {
+          key: 'img',
+          label: 'Imagen'
+        },
+        {
           key: 'name',
           label: 'Nombre',
           sortable: true
-        },
-        {
-          key: 'img',
-          label: 'Imagen'
         },
         {
           key: 'id',

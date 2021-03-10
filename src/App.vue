@@ -3,6 +3,8 @@
     <Sidebar/>
     <Menu/>
     <router-view style="margin-top: 60px" />
+      <!-- contact -->
+  <Contact/>
     <!-- <Footer/> -->
     <small class="pie">
       © 2021 Central Vet, Pigüé.<br>
@@ -15,13 +17,15 @@
 import _ItemId from '@/components/_ItemId.vue'
 import Menu from '@/components/Menu'
 import Sidebar from '@/components/Sidebar'
+import Contact from "@/components/_Contact"
 // import Delivery from '@/components/Delivery'
 
 export default {
   name: 'App',
   components: {
     Menu,
-    Sidebar
+    Sidebar,
+    Contact
   }
 }
 </script>
@@ -83,6 +87,9 @@ time, .time{
 .card-img-top{
   max-height: 250px;
   object-fit: cover;
+}
+.card-body, .shadow-card{
+  box-shadow: 0 0.25rem 0.25rem rgba(0,0,0,.25);
 }
 .btn-cart{
   color: #fff!important;

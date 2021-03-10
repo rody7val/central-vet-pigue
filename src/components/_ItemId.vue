@@ -1,9 +1,12 @@
 <template>
   <div>
-    <b-card bg-variant="light" style="margin-top: -1px; margin-bottom: 0px!important;"
+    <b-card
       id="card-item-view"
+      bg-variant="light"
+      class="bg-light mb-3"
+      style="margin-top: -1px; margin-bottom: 0px!important;"
       :img-alt="$store.state.items.data[$route.params.id].name"
-      class="bg-light mb-3">
+    >
       <b-container fluid>
         <b-row>
           <b-col sm="6" md="7" class="col-img">
@@ -94,18 +97,26 @@ export default {
   },
   methods: {
     checkout () {
-      let item = this.$store.state.items.data[this.$route.params.id]
       this.load = true
-      let preference = {
+      let item = this.$store.state.items.data[this.$route.params.id]
+      let id = this.$route.params.id
+      let title = item.name
+      let price = Number(Number(item.price).toFixed(2))
+      let currency = 'ARS'
+      let qty = Number(this.qty)
+      const preference = {
         items: [
           {
-            id: this.$route.params.id,
-            title: item.name,
-            unit_price: Number(Number(item.price).toFixed(2)),
-            currency_id: 'ARS',
-            quantity: Number(this.qty),
+            id: id,
+            title: title,
+            unit_price: price,
+            currency_id: 'currency',
+            quantity: qty,
           }
-        ]
+        ],
+        "back_urls": {
+          "success": `https://centralvetpigue.com.ar/${id}/${price}/${qty}/`
+        }
       }
       let createPreference = this.$firebase.functions().httpsCallable("createPreference")
       createPreference(preference).then(result => {

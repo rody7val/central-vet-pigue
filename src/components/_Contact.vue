@@ -1,6 +1,6 @@
 <template>
 <div>
-  <b-container>
+  <b-container class="mt-4">
     <b-row>
       <b-col>
         <h1 class="mb-5 shop-title">Contacto</h1>

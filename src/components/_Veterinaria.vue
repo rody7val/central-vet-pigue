@@ -21,20 +21,14 @@
   <b-container>
     <Categories/>
   </b-container>
-  <!-- contact -->
-  <Contact/>
 </div>
 </template>
 
 <script>
 import Categories from "@/components/_Categories"
-import Contact from "./_Contact"
 export default {
   name: "home",
-  components: {
-    Categories,
-    Contact
-  }
+  components: { Categories }
 }
 </script>
 

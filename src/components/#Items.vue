@@ -1,34 +1,6 @@
 <template>
   <b-row>
-    <b-col md="6">
-      <h4 class="my-3">Productos</h4>
-      <!-- table -->
-      <b-card class="table-items">
-        <b-table
-          :fields="fields"
-          :items="Object.keys($store.state.items.data).map(key => $store.state.items.data[key])"
-          :striped="false"
-          :borderless="true"
-          :fixed="false"
-          :hover="true"
-          head-variant="light">
-          <!-- Nombre -->
-          <template v-slot:cell(name)="data">
-            <small class="lead">{{ data.value }}</small>
-          </template>
-          <!-- Imagen -->
-          <template v-slot:cell(img)="data">
-            <b-img :src="data.value" width="60px"></b-img>
-          </template>
-          <template v-slot:cell(id)="data">
-            <b-badge style="cursor: pointer"
-              @click="_delete(data.value)"
-              variant="danger">delete</b-badge>
-          </template>
-        </b-table>
-      </b-card>
-    </b-col>
-    <b-col md="6" class="bd-sidebar">
+    <b-col md="12">
       <h4 class="my-3">Crear</h4>
       <b-card>
           <b-button v-if="!create"
@@ -71,16 +43,16 @@
             <b-form-group id="category-label" label="Categoría:" label-for="category">
               <b-form-select v-model="item.category" required
                 :options="
-	                Object.keys($store.state.categories.data).map(
-	                  (key) => {
-	                  	return {
-	                  		value: $store.state.categories.data[key].name,
-	                  		text: $store.state.categories.data[key].name
-	                  	}
-	                  })">
-	              <template v-slot:first>
-					        <b-form-select-option :value="''" disabled selected>-- Seleccionar --</b-form-select-option>
-					      </template>
+                  Object.keys($store.state.categories.data).map(
+                    (key) => {
+                      return {
+                        value: $store.state.categories.data[key].name,
+                        text: $store.state.categories.data[key].name
+                      }
+                    })">
+                <template v-slot:first>
+                  <b-form-select-option :value="''" disabled selected>-- Seleccionar --</b-form-select-option>
+                </template>
               </b-form-select>
             </b-form-group>
             <!-- tag -->
@@ -120,6 +92,32 @@
               size="sm"
               variant="secondary">Cancelar</b-button>
           </b-form>
+      </b-card>    
+      <h4 class="my-3">Productos</h4>
+      <!-- table -->
+      <b-card class="table-items">
+        <b-table
+          :fields="fields"
+          :items="Object.keys($store.state.items.data).map(key => $store.state.items.data[key])"
+          :striped="false"
+          :borderless="true"
+          :fixed="false"
+          :hover="true"
+          head-variant="light">
+          <!-- Nombre -->
+          <template v-slot:cell(name)="data">
+            <small class="lead">{{ data.value }}</small>
+          </template>
+          <!-- Imagen -->
+          <template v-slot:cell(img)="data">
+            <b-img :src="data.value" width="60px"></b-img>
+          </template>
+          <template v-slot:cell(id)="data">
+            <b-badge style="cursor: pointer"
+              @click="_delete(data.value)"
+              variant="danger">Borrar</b-badge>
+          </template>
+        </b-table>
       </b-card>
     </b-col>
   </b-row>
@@ -145,13 +143,13 @@ export default {
       },
       fields: [  // id, name, price, count, max
         {
+          key: 'img',
+          label: 'Imagen'
+        },
+        {
           key: 'name',
           label: 'Nombre',
           sortable: true
-        },
-        {
-          key: 'img',
-          label: 'Imagen'
         },
         {
           key: 'id',

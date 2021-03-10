@@ -1,15 +1,32 @@
 <template>
 	<div>
   <b-row>
-    <b-col md="6">
+    <b-col md="12">
       <h4 class="my-2">Usuarios</h4>
-      <ul>
-        <li v-for="user in $store.state.users.data" :key="user.email">{{user.name}}</li>
-      </ul>
-    </b-col>
-    <b-col sm="6" md="4">
-      <h4 class="my-2">Mi Perfil</h4>
-      <CardUser :left="false" :user="$store.state.users.data[$user.email]"/>
+      <!-- table -->
+      <b-card class="table-users">
+        <b-table
+          :fields="fields"
+          :items="Object.keys($store.state.users.data).map(key => $store.state.users.data[key])"
+          :striped="false"
+          :borderless="true"
+          :fixed="false"
+          :hover="true"
+          head-variant="light">
+          <!-- Nombre -->
+          <template v-slot:cell(name)="data">
+            <small class="lead">{{ data.value }}</small>
+          </template>
+          <!-- Email -->
+          <template v-slot:cell(email)="data">
+            <b class="">{{ data.value }}</b>
+          </template>
+          <!-- Imagen -->
+          <template v-slot:cell(img)="data">
+            <b-img :src="data.value" width="60px"></b-img>
+          </template>
+        </b-table>
+      </b-card>
     </b-col>
   </b-row>
   </div>
@@ -23,7 +40,23 @@ export default {
   data () {
   	return {
   		User: null,
-  		p: false
+  		p: false,
+      fields: [  // id, name, price, count, max
+        {
+          key: 'img',
+          label: 'Imagen'
+        },
+        {
+          key: 'name',
+          label: 'Nombre',
+          sortable: true
+        },
+        {
+          key: 'email',
+          label: 'Email',
+          sortable: true
+        }
+      ]
   	}
   },
   methods: {
@@ -39,4 +72,7 @@ export default {
 </script>
 
 <style scoped>
+.table-users .card-body{
+  padding: 0px
+}
 </style>

@@ -19,19 +19,21 @@
             <!-- admin -->
               <button v-if="$user"
                 @click="$router.push('/admin')"
-                :class="'btn btn-block btn-vete text-left mt-0 ' + sidebarState('/admin*', 'active')">Dashboard</button>
+                :class="'btn btn-block btn-vete text-left mt-0 ' + sidebarState('/admin*', 'active')">
+                Dashboard
+              </button>
             <!-- home -->
               <button
                 @click="$router.push('/')"
-                :class="'btn btn-block btn-vete text-left mt-0 ' + sidebarState('^/$', 'active')">Veterinaria</button>
+                :class="'btn btn-block btn-vete text-left mt-0 ' + sidebarState('^/$', 'active')">
+                Veterinaria
+              </button>
             <!-- shop -->
               <button
                 @click="$router.push('/items')"
-                :class="'btn btn-block btn-vete text-left mt-0 ' + sidebarState('/items*', 'active')">Tienda</button>
-            <!-- contact -->
-              <button
-                @click="$router.push('/contact')"
-                :class="'btn btn-block btn-vete text-left mt-0 ' + sidebarState('/contact', 'active')">Contacto</button>
+                :class="'btn btn-block btn-vete text-left mt-0 ' + sidebarState('/items*', 'active')">
+                Tienda
+              </button>
           </b-nav>
         </div>
       </div>
