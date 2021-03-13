@@ -2,7 +2,6 @@
 	<div>
   <b-row>
     <b-col md="12">
-      <h4 class="my-2">Usuarios</h4>
       <!-- table -->
       <b-card class="table-users">
         <b-table

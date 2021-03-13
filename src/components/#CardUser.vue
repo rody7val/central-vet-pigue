@@ -1,27 +1,26 @@
 <template>
   <div>
     <b-card
-      :class="(left ? 'userCardLeft ' : ' userCard ') + 'my-3'"
       img-topbg-variant="dark"
-      :img-left="left ? true : false"
-      :img-src="user.img"
-      :img-alt="user.email">
-      <h5><b>{{user.email}}</b></h5>
-      <p class="lead mb-0">{{user.name}}</p>
+      :img-src="getUser('img')"
+      :img-alt="getUser('email')">
+      <h6><b>{{getUser('email')}}</b></h6>
+      <p class="lead mb-0">{{getUser('name')}}</p>
       <!-- is admin -->
-      <div v-if="user.admin" class="text-left">
+      <div v-if="getUser('admin')" class="text-left">
         <b-badge pill variant="primary">admin</b-badge>
       </div>
       <div v-else class="text-left">
         <b-badge pill variant="success">cliente</b-badge>
       </div>
       <!-- is active -->
-      <div v-if="user.active" class="text-left">
+      <div v-if="getUser('active')" class="text-left">
         <b-badge pill variant="info">activo</b-badge>
       </div>
       <div v-else class="text-left">
         <b-badge pill variant="danger">baneado</b-badge>
       </div>
+      <!-- is active
       <div style="display: none" v-if="$store.state.users.data[$user.email].admin && left">
         <hr>
         <em>Acciones:</em>
@@ -43,7 +42,7 @@
             <small>{{ user.active ? "bannearse" : "activarse" }}</small>
           </b-form-checkbox>
         </form>
-      </div>
+      </div> -->
       <!-- actions 
       <template style="display: none" v-slot:footer v-if="$store.state.users.data[$user.email].admin && !left">
         <em>Acciones:</em>
@@ -76,8 +75,14 @@
 
 export default {
   name: 'cardUser',
-  props: ["user", "left"],
+  props: ["user"],
   methods: {
+    getUser(type) {
+      if (this.user){
+        return this.user[type]
+      }
+      return ""
+    },
     handleAdminChange(event){
       this.$store.dispatch('users/patch', {id: this.user.email, admin: event})
     },

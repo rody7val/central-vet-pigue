@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-list-group class="my-3 shadow-card">
+    <b-list-group class="mb-4 shadow-card ">
       <b-list-group-item class="d-flex justify-content-between align-items-center">
         <b-link @click="$router.push('/admin/categories')">
           <h5 class="my-0 py-0">CATEGORIAS</H5>
@@ -30,31 +30,8 @@
 </template>
 
 <script>
-import CardUser from "./#CardUser"
 export default {
   name: 'dashboard',
-  components: {CardUser},
-  mounted () {
-    this.$store.commit('resetSearchCategories')
-    this.$store.commit('resetItems')
-    this.getUsers()
-    this.getCategories()
-    this.getItems()
-  },
-  methods: {
-    getUsers () { this.$store.dispatch('users/openDBChannel') },
-    getCategories () { this.$store.dispatch('categories/openDBChannel') },
-    getItems () {
-      const orderBy = ['name']
-      const where = [
-        ['name', '>', ""],
-        //['another_field', '==', true],
-      ]
-      this.$store.dispatch('items/openDBChannel', {
-        clauses: { where, orderBy }
-      })
-    },
-  }
 }
 </script>
 

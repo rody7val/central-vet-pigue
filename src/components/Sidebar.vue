@@ -16,12 +16,6 @@
         </div>
         <div>
           <b-nav vertical pills>
-            <!-- admin -->
-              <button v-if="$user"
-                @click="$router.push('/admin')"
-                :class="'btn btn-block btn-vete text-left mt-0 ' + sidebarState('/admin*', 'active')">
-                Dashboard
-              </button>
             <!-- home -->
               <button
                 @click="$router.push('/')"
@@ -34,9 +28,16 @@
                 :class="'btn btn-block btn-vete text-left mt-0 ' + sidebarState('/items*', 'active')">
                 Tienda
               </button>
+            <!-- admin -->
+              <button v-if="$user"
+                @click="$router.push('/admin')"
+                :class="'btn btn-block btn-vete text-left mt-0 ' + sidebarState('/admin*', 'active')">
+                Panel de Control
+              </button>
           </b-nav>
         </div>
       </div>
+      <img fluid src="@/assets/cat.svg" class="cat"/>
     </b-sidebar>
   </div>
 </template>
@@ -53,6 +54,12 @@ export default {
 </script>
 
 <style scoped>
+.cat{
+  position: absolute;
+  width: 100px;
+  bottom: 0px;
+  right: 105px
+}
 .active{
   text-decoration: none!important;
   background-color: #563d7c!important;

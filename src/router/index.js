@@ -5,6 +5,7 @@ import firebase from 'firebase'
 import Veterinaria from '@/components/_Veterinaria'
 import Items from '@/components/_Items'
 import ItemId from '@/components/_ItemId.vue'
+import Success from '@/components/_Success.vue'
 import Admin from '@/components/#Admin.vue'
 import _404 from '@/components/_404.vue'
 
@@ -27,6 +28,11 @@ const router = new Router({
       path: '/items/:id',
       name: 'itemId',
       component: ItemId
+    },
+    {
+      path: '/success/:itemId/:price/:qty',
+      name: 'success',
+      component: Success
     },
     {
       path: '/admin',

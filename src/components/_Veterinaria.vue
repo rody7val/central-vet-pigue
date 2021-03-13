@@ -6,7 +6,7 @@
       <b-row>
         <b-col sm="8" class="order-2 order-sm-1 mb-5">
           <h1 class="title-home shop-title pt-0 pt-sm-5">VETERINARIA</h1>
-          <h1 class="title-vete">CentralVet Pigüé</h1>
+          <h1 class="shop-title">CENTRAL-VET PIGÜÉ</h1>
           <p>Clínica de Pequeños Animales</p>
           <hr class="my-sm-4" style="border-color: #7952b3">
           <p class="lead">M.V. Guillermina Puente</p>

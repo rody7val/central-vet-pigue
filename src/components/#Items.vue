@@ -1,8 +1,7 @@
 <template>
   <b-row>
     <b-col md="12">
-      <h4 class="my-3">Crear</h4>
-      <b-card>
+      <b-card class="mb-3">
           <b-button v-if="!create"
             @click="create=true"
             size="sm"
@@ -46,7 +45,7 @@
                   Object.keys($store.state.categories.data).map(
                     (key) => {
                       return {
-                        value: $store.state.categories.data[key].name,
+                        value: $store.state.categories.data[key].name.toLowerCase(),
                         text: $store.state.categories.data[key].name
                       }
                     })">
@@ -92,8 +91,7 @@
               size="sm"
               variant="secondary">Cancelar</b-button>
           </b-form>
-      </b-card>    
-      <h4 class="my-3">Productos</h4>
+      </b-card>
       <!-- table -->
       <b-card class="table-items">
         <b-table

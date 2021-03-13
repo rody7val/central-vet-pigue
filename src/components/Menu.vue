@@ -20,7 +20,7 @@ import Cart from '@/components/_Cart'
 import Auth from '@/components/_Auth'
 
 export default {
-  name: 'menu',
+  name: 'Menu',
   components: {
     Auth,
     Cart

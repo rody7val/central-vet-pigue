@@ -5,12 +5,12 @@
       bg-variant="light"
       class="bg-light mb-3"
       style="margin-top: -1px; margin-bottom: 0px!important;"
-      :img-alt="$store.state.items.data[$route.params.id].name"
+      :img-alt="getItem('name')"
     >
       <b-container fluid>
         <b-row>
           <b-col sm="6" md="7" class="col-img">
-            <img :src="$store.state.items.data[$route.params.id].img" class="card-img card-img-top img-fluid" />
+            <img :src="getItem('img')" class="card-img card-img-top img-fluid" />
           </b-col sm="6" md="5" >
           <b-col>
             <!-- alert info -->
@@ -29,9 +29,9 @@
             </b-alert>
             <div class="_card-body">
               <!-- title -->
-              <h1 class="shop-title title mt-3">{{$store.state.items.data[$route.params.id].name}}</h1>
+              <h1 class="shop-title title mt-3">{{getItem('name')}}</h1>
               <!-- price -->
-              <h1 class="shop-text price mt-3"><code>$ {{Number($store.state.items.data[$route.params.id].price).toFixed(0)}}</code></h1>
+              <h1 class="shop-text price mt-3"><code>$ {{Number(getItem('price')).toFixed(0)}}</code></h1>
                 <!-- stock muted -->
                 <!-- <p class="text-muted text-right">
                   <small>
@@ -96,6 +96,14 @@ export default {
     this.$store.dispatch('items/fetchById', this.$route.params.id)
   },
   methods: {
+    getItem(type) {
+      return (
+        Object.keys(this.$store.state.items.data).length
+      ) ? 
+        this.$store.state.items.data[this.$route.params.id][type]
+        :
+        ""
+    },
     checkout () {
       this.load = true
       let item = this.$store.state.items.data[this.$route.params.id]
@@ -104,20 +112,24 @@ export default {
       let price = Number(Number(item.price).toFixed(2))
       let currency = 'ARS'
       let qty = Number(this.qty)
-      const preference = {
+      let preference = {
         items: [
           {
             id: id,
             title: title,
             unit_price: price,
-            currency_id: 'currency',
+            currency_id: currency,
             quantity: qty,
           }
         ],
         "back_urls": {
-          "success": `https://centralvetpigue.com.ar/${id}/${price}/${qty}/`
-        }
+          "success": `https://centralvetpigue.com.ar/success/${id}/${price}/${qty}/`,
+          "failure": `https://centralvetpigue.com.ar/failure/${id}/${price}/${qty}/`,
+          "pending": `https://centralvetpigue.com.ar/pending/${id}/${price}/${qty}/`
+        },
+        "auto_return": "approved",
       }
+      console.log(preference)
       let createPreference = this.$firebase.functions().httpsCallable("createPreference")
       createPreference(preference).then(result => {
         if (!result.data.success) {

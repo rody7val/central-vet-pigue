@@ -119,6 +119,16 @@ export default {
           return _item
         })
       }
+      let itemIds = preference.items.map((item, index) => {return item.id}).join('-')
+      let prices = preference.items.map((item, index) => {return item.unit_price}).join('-')
+      let qtys = preference.items.map((item, index) => {return item.quantity}).join('-')
+      let params = `${itemIds}/${prices}/${qtys}}`
+      preference.back_urls = {
+        "success": `https://centralvetpigue.com.ar/success/${params}/`,
+        "failure": `https://centralvetpigue.com.ar/failure/${params}/`,
+        "pending": `https://centralvetpigue.com.ar/pending/${params}}/`
+      }
+      preference.auto_return = "approved"
       let createPreference = this.$firebase.functions().httpsCallable("createPreference")
       createPreference(preference).then(result => {
         if (!result.data.success) {

@@ -1,8 +1,8 @@
 <template>
   <b-row>
     <b-col md="12" >
-      <h4 class="my-3">Crear</h4>
-      <b-card>
+      <!-- <h4 class="my-3">CREAR</h4> -->
+      <b-card class="mb-4">
         <b-button
           v-if="!create"
           @click="create=true"
@@ -45,7 +45,7 @@
             variant="secondary">Cancelar</b-button>
         </b-form>
       </b-card>
-      <h4 class="my-3">Categorías</h4>
+      <!-- <h4 class="my-3">CATEGORÍAS</h4> -->
       <!-- table -->
       <b-card class="table-category">
         <b-table

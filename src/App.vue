@@ -3,9 +3,9 @@
     <Sidebar/>
     <Menu/>
     <router-view style="margin-top: 60px" />
-      <!-- contact -->
-  <Contact/>
-    <!-- <Footer/> -->
+    <!-- contact -->
+    <Contact/>
+    <!-- Footer -->
     <small class="pie">
       © 2021 Central Vet, Pigüé.<br>
       Made with <span style="color: #e91e63">❤</span>
@@ -89,7 +89,7 @@ time, .time{
   object-fit: cover;
 }
 .card-body, .shadow-card{
-  box-shadow: 0 0.25rem 0.25rem rgba(0,0,0,.25);
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
 }
 .btn-cart{
   color: #fff!important;
@@ -119,7 +119,7 @@ ul.dropdown-menu{
 ul.dropdown-menu li a{
   background-color: #fff!important;
   color: #333!important;
-  font-size: 22px
+  font-size: 18px
 }
 ul.dropdown-menu li a:hover{
   background-color: #e83e8c!important;
@@ -145,6 +145,7 @@ p{
   color: #fff!important;
   background-color: #6c757d!important;
   border-color: #6c757d!important;
+  font-size: 12px
 }
 
 .icon-wsp{

@@ -10,27 +10,22 @@ const router = new Router({
   routes: [
     {
       path: '/admin',
-      name: 'dashboard',
+      name: 'PANEL DE CONTROL',
       component: Dashboard
     },
     {
       path: '/admin/categories',
-      name: 'categories',
+      name: 'CATEGORIAS',
       component: Categories
     },
     {
       path: '/admin/users',
-      name: 'users',
-      component: Users
-    },
-    {
-      path: '/admin/users/view/:email',
-      name: 'users',
+      name: 'CLIENTES',
       component: Users
     },
     {
       path: '/admin/items',
-      name: 'items',
+      name: 'OFERTAS ONLINE',
       component: Items
     },
   ]
